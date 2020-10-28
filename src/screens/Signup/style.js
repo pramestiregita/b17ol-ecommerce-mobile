@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   title: {
     marginTop: 25,
-    marginBottom: 100,
+    marginBottom: 60,
   },
   titleText: {
     fontWeight: 'bold',
