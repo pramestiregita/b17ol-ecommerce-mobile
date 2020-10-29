@@ -4,7 +4,7 @@ import {Card} from 'native-base';
 
 import style from './style';
 
-export default class MyOrder extends Component {
+export default class CardMyOrder extends Component {
   render() {
     return (
       <Card style={style.card}>
