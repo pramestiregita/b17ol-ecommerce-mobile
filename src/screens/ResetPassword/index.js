@@ -14,7 +14,7 @@ import {
 
 import style from './style';
 
-export default class ForgotPassword extends Component {
+export default class ResetPassword extends Component {
   render() {
     return (
       <View style={style.parent}>

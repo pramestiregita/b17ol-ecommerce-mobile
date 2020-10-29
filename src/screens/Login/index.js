@@ -15,7 +15,7 @@ import {
 
 import style from './style';
 
-export default class Signup extends Component {
+export default class Login extends Component {
   render() {
     return (
       <View style={style.parent}>
