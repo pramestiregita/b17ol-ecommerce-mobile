@@ -28,7 +28,9 @@ export default class MyProfile extends Component {
         </View>
         <View style={style.listWrapper}>
           <List>
-            <ListItem>
+            <ListItem
+              onPress={() => this.props.navigation.navigate('MyOrder')}
+              button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>My orders</Text>
                 <Text style={style.listDesc}>Already have # orders</Text>
@@ -37,7 +39,9 @@ export default class MyProfile extends Component {
                 <Icon style={style.listIcon} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem
+              onPress={() => this.props.navigation.navigate('ShippingAddress')}
+              button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>Shipping Addresses</Text>
                 <Text style={style.listDesc}># addresses</Text>
