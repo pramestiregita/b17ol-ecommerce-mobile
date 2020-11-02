@@ -12,7 +12,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        alertMsg: 'Loginin...',
       };
     }
     case 'LOGIN_REJECTED': {
@@ -30,6 +29,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         isLogin: true,
         token: action.payload.data.token,
+        alertMsg: 'Login Succesfully',
       };
     }
     default: {

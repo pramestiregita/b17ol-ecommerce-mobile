@@ -9,6 +9,7 @@ import style from './style';
 
 import userAction from '../../redux/actions/user';
 import orderAction from '../../redux/actions/order';
+import addressAction from '../../redux/actions/address';
 
 import placeholder from '../../assets/avatar.png';
 
@@ -20,11 +21,14 @@ class MyProfile extends Component {
   componentDidMount() {
     this.props.getProfile(this.state.token);
     this.props.getOrder(this.state.token);
+    this.props.getAddress(this.state.token);
   }
 
   render() {
+    console.log(API_URL);
     const {data} = this.props.profile;
-    const {totalData: orders} = this.props.pageInfo;
+    const {totalData: orders} = this.props.orderPage;
+    const {totalData: addresses} = this.props.addressPage;
     return (
       <View style={style.parent}>
         <View style={style.content}>
@@ -71,7 +75,11 @@ class MyProfile extends Component {
               button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>Shipping Addresses</Text>
-                <Text style={style.listDesc}># addresses</Text>
+                <Text style={style.listDesc}>
+                  {addresses > 1
+                    ? addresses + ' addresses'
+                    : addresses + ' address'}
+                </Text>
               </Left>
               <Right>
                 <Icon style={style.listIcon} name="chevron-right" />
@@ -96,12 +104,14 @@ class MyProfile extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   profile: state.user,
-  pageInfo: state.order.pageInfo,
+  orderPage: state.order.pageInfo,
+  addressPage: state.address.pageInfo,
 });
 
 const mapDispatchToProps = {
   getProfile: userAction.getDetail,
   getOrder: orderAction.getTransaction,
+  getAddress: addressAction.getAddress,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

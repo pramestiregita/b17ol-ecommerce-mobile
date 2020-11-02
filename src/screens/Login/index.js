@@ -6,6 +6,8 @@ import {
   Button,
   Card,
   CardItem,
+  Container,
+  Content,
   Form,
   H1,
   Input,
@@ -25,7 +27,6 @@ class Login extends Component {
   };
 
   login = () => {
-    console.log(this.state);
     const {email, password} = this.state;
     const data = {email, password};
     this.props.doLogin(data);
@@ -45,49 +46,57 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={style.parent}>
-        <View style={style.title}>
-          <H1 style={style.titleText}>Login</H1>
-        </View>
-        <Form>
-          <Card style={style.inputCard}>
-            <CardItem>
-              <Body>
-                <Item style={style.inputWrapper} floatingLabel>
-                  <Label style={style.label}>Email</Label>
-                  <Input
-                    onChangeText={(email) => this.setState({email})}
-                    style={style.input}
-                  />
-                </Item>
-              </Body>
-            </CardItem>
-          </Card>
-          <Card style={style.inputCard}>
-            <CardItem>
-              <Body>
-                <Item style={style.inputWrapper} floatingLabel>
-                  <Label style={style.label}>Password</Label>
-                  <Input
-                    onChangeText={(password) => this.setState({password})}
-                    style={style.input}
-                    secureTextEntry
-                  />
-                </Item>
-              </Body>
-            </CardItem>
-          </Card>
-          <View style={style.linkWrapper}>
-            <Text style={style.textLink}>Forgot your password?</Text>
-            <Icon style={style.iconLink} name="long-arrow-right" size={19} />
+      <Container>
+        <Content>
+          <View style={style.parent}>
+            <View style={style.title}>
+              <H1 style={style.titleText}>Login</H1>
+            </View>
+            <Form>
+              <Card style={style.inputCard}>
+                <CardItem>
+                  <Body>
+                    <Item style={style.inputWrapper} floatingLabel>
+                      <Label style={style.label}>Email</Label>
+                      <Input
+                        onChangeText={(email) => this.setState({email})}
+                        style={style.input}
+                      />
+                    </Item>
+                  </Body>
+                </CardItem>
+              </Card>
+              <Card style={style.inputCard}>
+                <CardItem>
+                  <Body>
+                    <Item style={style.inputWrapper} floatingLabel>
+                      <Label style={style.label}>Password</Label>
+                      <Input
+                        onChangeText={(password) => this.setState({password})}
+                        style={style.input}
+                        secureTextEntry
+                      />
+                    </Item>
+                  </Body>
+                </CardItem>
+              </Card>
+              <View style={style.linkWrapper}>
+                <Text style={style.textLink}>Forgot your password?</Text>
+                <Icon
+                  style={style.iconLink}
+                  name="long-arrow-right"
+                  size={19}
+                />
+              </View>
+              <View style={style.btnWrapper}>
+                <Button onPress={this.login} style={style.btn}>
+                  <Text style={style.btnText}>login</Text>
+                </Button>
+              </View>
+            </Form>
           </View>
-          <View style={style.btnWrapper}>
-            <Button onPress={this.login} style={style.btn}>
-              <Text style={style.btnText}>login</Text>
-            </Button>
-          </View>
-        </Form>
-      </View>
+        </Content>
+      </Container>
     );
   }
 }
