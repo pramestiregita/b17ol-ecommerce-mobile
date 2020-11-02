@@ -2,11 +2,16 @@ import React, {Component} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {View} from 'react-native';
 import {H1} from 'native-base';
+import {connect} from 'react-redux';
 
 import style from './style';
 import List from '../../components/CardMyOrder';
 
-export default class MyOrder extends Component {
+class MyOrder extends Component {
+  componentDidMount() {
+    console.log(this.props.orders);
+  }
+
   render() {
     return (
       <View style={style.parent}>
@@ -16,10 +21,16 @@ export default class MyOrder extends Component {
         <View style={style.title}>
           <H1 style={style.titleText}>My Order</H1>
         </View>
-        {[...Array(3)].map((_i, _o) => (
-          <List />
+        {this.props.orders.map((i, _o) => (
+          <List id={i.transaction_id} qty={i.quantity} sum={i.summary} />
         ))}
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  orders: state.order.data,
+});
+
+export default connect(mapStateToProps)(MyOrder);

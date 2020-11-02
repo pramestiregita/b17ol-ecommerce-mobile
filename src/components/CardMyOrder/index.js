@@ -9,7 +9,7 @@ export default class CardMyOrder extends Component {
     return (
       <Card style={style.card}>
         <View style={style.header}>
-          <Text style={style.orderNumb}>Order No.#</Text>
+          <Text style={style.orderNumb}>Order No.{this.props.id}</Text>
           <Text style={style.headerDate}>Date</Text>
         </View>
         <View style={style.cardBody}>
@@ -18,11 +18,11 @@ export default class CardMyOrder extends Component {
         </View>
         <View style={style.cardBody}>
           <Text style={style.listName}>Quantity : </Text>
-          <Text style={style.listValue}>#</Text>
+          <Text style={style.listValue}>{this.props.qty}</Text>
         </View>
         <View style={style.cardBody}>
           <Text style={style.listName}>Total Amount : </Text>
-          <Text style={style.listValue}>#</Text>
+          <Text style={style.listValue}>{this.props.sum}</Text>
         </View>
         <View style={style.footer}>
           {/* <Text style={style.danger}>Status</Text> */}

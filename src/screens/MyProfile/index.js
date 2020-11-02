@@ -8,6 +8,7 @@ import {API_URL} from '@env';
 import style from './style';
 
 import userAction from '../../redux/actions/user';
+import orderAction from '../../redux/actions/order';
 
 import placeholder from '../../assets/avatar.png';
 
@@ -18,11 +19,12 @@ class MyProfile extends Component {
 
   componentDidMount() {
     this.props.getProfile(this.state.token);
+    this.props.getOrder(this.state.token);
   }
 
   render() {
-    // console.log(this.props.profile);
     const {data} = this.props.profile;
+    const {totalData: orders} = this.props.pageInfo;
     return (
       <View style={style.parent}>
         <View style={style.content}>
@@ -58,7 +60,7 @@ class MyProfile extends Component {
               button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>My orders</Text>
-                <Text style={style.listDesc}>Already have # orders</Text>
+                <Text style={style.listDesc}>Already have {orders} orders</Text>
               </Left>
               <Right>
                 <Icon style={style.listIcon} name="chevron-right" />
@@ -94,10 +96,12 @@ class MyProfile extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   profile: state.user,
+  pageInfo: state.order.pageInfo,
 });
 
 const mapDispatchToProps = {
   getProfile: userAction.getDetail,
+  getOrder: orderAction.getTransaction,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
