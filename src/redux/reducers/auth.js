@@ -32,6 +32,28 @@ export default (state = initialState, action) => {
         alertMsg: 'Login Succesfully',
       };
     }
+    case 'SIGNUP_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'SIGNUP_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload.response.data.message,
+      };
+    }
+    case 'SIGNUP_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        alertMsg: action.payload.data.message,
+      };
+    }
     default: {
       return state;
     }

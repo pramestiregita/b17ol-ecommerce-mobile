@@ -6,4 +6,8 @@ export default {
     type: 'LOGIN',
     payload: http().post('auth/login/customer', qs.stringify(data)),
   }),
+  signup: (data) => ({
+    type: 'SIGNUP',
+    payload: http().post('auth/register/customer', qs.stringify(data)),
+  }),
 };
