@@ -8,7 +8,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
+import Landingpage from '../Landingpage';
 import Login from '../Login';
+import Signup from '../Signup';
 import Home from '../Home';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
@@ -36,6 +38,20 @@ const ProfileStack = () => {
   );
 };
 
+const AuthStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="Landingpage"
+        component={Landingpage}
+      />
+      <Stack.Screen options={{title: ''}} name="Login" component={Login} />
+      <Stack.Screen options={{title: ''}} name="Signup" component={Signup} />
+    </Stack.Navigator>
+  );
+};
+
 class Main extends Component {
   render() {
     return (
@@ -44,8 +60,8 @@ class Main extends Component {
           <Stack.Navigator>
             <Stack.Screen
               options={{headerShown: false}}
-              name="Login"
-              component={Login}
+              name="Auth"
+              component={AuthStack}
             />
           </Stack.Navigator>
         ) : (
