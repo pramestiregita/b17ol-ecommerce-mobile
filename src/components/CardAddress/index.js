@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import {Button, Card} from 'native-base';
 
 import style from './style';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class CardAddress extends Component {
   state = {
@@ -11,13 +12,13 @@ export default class CardAddress extends Component {
   render() {
     return (
       <Card style={style.parent}>
-        <Button
-          style={style.selected}
+        <TouchableOpacity
+          style={this.props.pri == 1 ? style.selected : style.btn}
           onPress={() => console.log(this.state.id)}
           transparent>
           <View style={style.btnText}>
             <View style={style.header}>
-              <Text style={style.name}>Name</Text>
+              <Text style={style.name}>{this.props.name}</Text>
               <Button
                 style={style.change}
                 transparent
@@ -25,9 +26,9 @@ export default class CardAddress extends Component {
                 <Text>Change</Text>
               </Button>
             </View>
-            <Text>Address</Text>
+            <Text>{this.props.address}</Text>
           </View>
-        </Button>
+        </TouchableOpacity>
       </Card>
     );
   }

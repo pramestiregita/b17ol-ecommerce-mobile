@@ -8,16 +8,16 @@ export default StyleSheet.create({
   selected: {
     borderRadius: 6,
     width: '100%',
-    height: 80,
     paddingHorizontal: 20,
+    paddingVertical: 10,
     borderWidth: 1,
     borderColor: 'red',
   },
   btn: {
     borderRadius: 6,
     width: '100%',
-    height: 80,
     paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   btnText: {
     width: '100%',
