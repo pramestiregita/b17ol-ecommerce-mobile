@@ -11,6 +11,7 @@ const BottomTab = createBottomTabNavigator();
 import Landingpage from '../Landingpage';
 import Login from '../Login';
 import Signup from '../Signup';
+import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
@@ -48,6 +49,11 @@ const AuthStack = () => {
       />
       <Stack.Screen options={{title: ''}} name="Login" component={Login} />
       <Stack.Screen options={{title: ''}} name="Signup" component={Signup} />
+      <Stack.Screen
+        options={{title: ''}}
+        name="ForgotPassword"
+        component={ForgotPassword}
+      />
     </Stack.Navigator>
   );
 };

@@ -18,6 +18,7 @@ import {connect} from 'react-redux';
 
 import style from './style';
 import authAction from '../../redux/actions/auth';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 class Login extends Component {
   state = {
@@ -80,14 +81,16 @@ class Login extends Component {
                   </Body>
                 </CardItem>
               </Card>
-              <View style={style.linkWrapper}>
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('ForgotPassword')}
+                style={style.linkWrapper}>
                 <Text style={style.textLink}>Forgot your password?</Text>
                 <Icon
                   style={style.iconLink}
                   name="long-arrow-right"
                   size={19}
                 />
-              </View>
+              </TouchableOpacity>
               <View style={style.btnWrapper}>
                 <Button onPress={this.login} style={style.btn}>
                   <Text style={style.btnText}>login</Text>
