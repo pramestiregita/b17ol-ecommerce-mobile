@@ -40,7 +40,7 @@ export default StyleSheet.create({
     fontSize: 16,
   },
   iconLink: {
-    color: '#884A6F',
+    color: '#DB3022',
     marginLeft: 5,
   },
   btnWrapper: {
@@ -51,7 +51,7 @@ export default StyleSheet.create({
     width: '100%',
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#884A6F',
+    backgroundColor: '#DB3022',
     alignItems: 'center',
     justifyContent: 'center',
   },
