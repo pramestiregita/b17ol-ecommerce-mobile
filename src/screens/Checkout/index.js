@@ -61,8 +61,8 @@ export default class Checkout extends Component {
           <View style={style.title}>
             <Text style={style.titleText}>Payment</Text>
           </View>
-          {this.state.payment.map((i) => (
-            <View style={style.paymentWrapper}>
+          {this.state.payment.map((i, o) => (
+            <View key={o} style={style.paymentWrapper}>
               <Card style={style.payCard}>
                 <Image source={i.img} />
               </Card>
