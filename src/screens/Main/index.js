@@ -15,6 +15,7 @@ import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
 import Categories from '../Categories';
+import CategoryDetail from '../CategoryDetail';
 import MyBag from '../MyBag';
 import Checkout from '../Checkout';
 import Success from '../Success';
@@ -98,7 +99,7 @@ const ShopStack = () => {
         ),
         headerRightContainerStyle: {paddingHorizontal: 20},
         headerStyle: {
-          backgroundColor: 'none',
+          backgroundColor: 'white',
           elevation: 1,
         },
       }}>
@@ -117,6 +118,7 @@ const ShopStack = () => {
         name="Category"
         component={Categories}
       />
+      <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
     </Stack.Navigator>
   );
 };

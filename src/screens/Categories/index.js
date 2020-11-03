@@ -16,7 +16,10 @@ export default class Categories extends Component {
             <Text style={style.title}>Choose Category</Text>
             {[...Array(13)].map((_i, o) => (
               <List key={o}>
-                <ListItem onPress={() => console.log(o)}>
+                <ListItem
+                  onPress={() =>
+                    this.props.navigation.navigate('CategoryDetail')
+                  }>
                   <Text>A</Text>
                 </ListItem>
               </List>
