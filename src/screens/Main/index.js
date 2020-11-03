@@ -15,6 +15,7 @@ import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
 import MyBag from '../MyBag';
+import Checkout from '../Checkout';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
 import ShippingAddress from '../ShippingAddress';
@@ -32,7 +33,7 @@ const ProfileStack = () => {
         headerRightContainerStyle: {paddingHorizontal: 20},
         headerStyle: {
           backgroundColor: 'none',
-          elevation: 0,
+          elevation: 1,
         },
       }}>
       <Stack.Screen name="MyProfile" component={MyProfile} />
@@ -74,11 +75,67 @@ const MyBagStack = () => {
         headerRightContainerStyle: {paddingHorizontal: 20},
         headerStyle: {
           backgroundColor: 'none',
-          elevation: 0,
+          elevation: 1,
         },
       }}>
       <Stack.Screen name="MyBag" component={MyBag} />
+      <Stack.Screen name="Checkout" component={Checkout} />
     </Stack.Navigator>
+  );
+};
+
+const Tab = () => {
+  return (
+    <BottomTab.Navigator
+      tabBarOptions={{
+        activeTintColor: '#DB3022',
+      }}>
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({size, color, focused}) => (
+            <Icon name="home" size={size} color={color} />
+          ),
+        }}
+        name="Home"
+        component={Home}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({size, color, focused}) => (
+            <Icon name="shopping-cart" size={size} color={color} />
+          ),
+        }}
+        name="Shop"
+        component={Home}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({size, color, focused}) => (
+            <Icon name="shopping-bag" size={size} color={color} />
+          ),
+        }}
+        name="Bag"
+        component={MyBagStack}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({size, color, focused}) => (
+            <Icon name="heart" size={size} color={color} />
+          ),
+        }}
+        name="Favorite"
+        component={Home}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({size, color, focused}) => (
+            <Icon name="user" size={size} color={color} />
+          ),
+        }}
+        name="Profile"
+        component={ProfileStack}
+      />
+    </BottomTab.Navigator>
   );
 };
 
@@ -95,56 +152,13 @@ class Main extends Component {
             />
           </Stack.Navigator>
         ) : (
-          <BottomTab.Navigator
-            tabBarOptions={{
-              activeTintColor: '#DB3022',
-            }}>
-            <BottomTab.Screen
-              options={{
-                tabBarIcon: ({size, color, focused}) => (
-                  <Icon name="home" size={size} color={color} />
-                ),
-              }}
-              name="Home"
-              component={Home}
+          <Stack.Navigator>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Tabbed"
+              component={Tab}
             />
-            <BottomTab.Screen
-              options={{
-                tabBarIcon: ({size, color, focused}) => (
-                  <Icon name="shopping-cart" size={size} color={color} />
-                ),
-              }}
-              name="Shop"
-              component={Home}
-            />
-            <BottomTab.Screen
-              options={{
-                tabBarIcon: ({size, color, focused}) => (
-                  <Icon name="shopping-bag" size={size} color={color} />
-                ),
-              }}
-              name="Bag"
-              component={MyBagStack}
-            />
-            <BottomTab.Screen
-              options={{
-                tabBarIcon: ({size, color, focused}) => (
-                  <Icon name="heart" size={size} color={color} />
-                ),
-              }}
-              name="Favorite"
-              component={Home}
-            />
-            <BottomTab.Screen
-              options={{
-                tabBarIcon: ({size, color, focused}) => (
-                  <Icon name="user" size={size} color={color} />
-                ),
-              }}
-              name="Profile"
-              component={ProfileStack}
-            />
-          </BottomTab.Navigator>
+          </Stack.Navigator>
         )}
       </NavigationContainer>
     );

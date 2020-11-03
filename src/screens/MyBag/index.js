@@ -25,7 +25,10 @@ export default class MyBag extends Component {
             <Text style={style.total}>Total amount :</Text>
             <Text style={style.price}>$</Text>
           </View>
-          <Button style={style.btn} block>
+          <Button
+            onPress={() => this.props.navigation.navigate('Checkout')}
+            style={style.btn}
+            block>
             <Text style={style.btnText}>check out</Text>
           </Button>
         </View>
