@@ -14,6 +14,7 @@ import Login from '../Login';
 import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
+import Categories from '../Categories';
 import MyBag from '../MyBag';
 import Checkout from '../Checkout';
 import Success from '../Success';
@@ -85,6 +86,41 @@ const MyBagStack = () => {
   );
 };
 
+const ShopStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        title: '',
+        headerRight: () => (
+          <TouchableOpacity>
+            <Icon name="search" size={20} />
+          </TouchableOpacity>
+        ),
+        headerRightContainerStyle: {paddingHorizontal: 20},
+        headerStyle: {
+          backgroundColor: 'none',
+          elevation: 1,
+        },
+      }}>
+      <Stack.Screen
+        options={{
+          title: 'Categories',
+          headerTitleAlign: 'center',
+          headerTitleStyle: {fontSize: 16},
+          headerLeft: () => (
+            <TouchableOpacity>
+              <Icon name="arrow-left" size={20} />
+            </TouchableOpacity>
+          ),
+          headerLeftContainerStyle: {padding: 20},
+        }}
+        name="Category"
+        component={Categories}
+      />
+    </Stack.Navigator>
+  );
+};
+
 const Tab = () => {
   return (
     <BottomTab.Navigator
@@ -107,7 +143,7 @@ const Tab = () => {
           ),
         }}
         name="Shop"
-        component={Home}
+        component={ShopStack}
       />
       <BottomTab.Screen
         options={{
