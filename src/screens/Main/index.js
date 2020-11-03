@@ -16,6 +16,7 @@ import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
 import MyBag from '../MyBag';
 import Checkout from '../Checkout';
+import Success from '../Success';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
 import ShippingAddress from '../ShippingAddress';
@@ -157,6 +158,11 @@ class Main extends Component {
               options={{headerShown: false}}
               name="Tabbed"
               component={Tab}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Success"
+              component={Success}
             />
           </Stack.Navigator>
         )}

@@ -90,7 +90,10 @@ export default class Checkout extends Component {
             <Text style={style.listName}>Summary:</Text>
             <Text style={style.listValue}>$</Text>
           </View>
-          <Button style={style.btn} block>
+          <Button
+            onPress={() => this.props.navigation.navigate('Success')}
+            style={style.btn}
+            block>
             <Text style={style.btnText}>submit order</Text>
           </Button>
         </View>
