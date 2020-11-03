@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 
 import style from './style';
 import List from '../../components/CardMyOrder';
-// import {ScrollView} from 'react-native-gesture-handler';
 
 class MyOrder extends Component {
   render() {
@@ -16,7 +15,13 @@ class MyOrder extends Component {
             <H1 style={style.titleText}>My Order</H1>
           </View>
           {this.props.orders.map((i, _o) => (
-            <List id={i.transaction_id} qty={i.quantity} sum={i.summary} />
+            <List
+              key={i.transaction_id}
+              id={i.transaction_id}
+              qty={i.quantity}
+              sum={i.summary}
+              date={i.date}
+            />
           ))}
         </View>
       </ScrollView>

@@ -13,7 +13,7 @@ export default StyleSheet.create({
   orderNumb: {
     flex: 1,
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 15,
   },
   headerDate: {
     alignSelf: 'flex-end',
