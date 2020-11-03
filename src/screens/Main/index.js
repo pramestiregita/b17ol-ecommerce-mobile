@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -19,22 +20,19 @@ import ShippingAddress from '../ShippingAddress';
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{headerShown: false}}
-        name="MyProfile"
-        component={MyProfile}
-      />
-      <Stack.Screen
-        // options={{headerShown: false}}
-        name="MyOrder"
-        component={MyOrder}
-      />
-      <Stack.Screen
-        // options={{headerShown: false}}
-        name="ShippingAddress"
-        component={ShippingAddress}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        title: '',
+        headerRight: () => (
+          <TouchableOpacity>
+            <Icon name="search" size={20} />
+          </TouchableOpacity>
+        ),
+        headerRightContainerStyle: {paddingHorizontal: 20},
+      }}>
+      <Stack.Screen name="MyProfile" component={MyProfile} />
+      <Stack.Screen name="MyOrder" component={MyOrder} />
+      <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
     </Stack.Navigator>
   );
 };
@@ -71,7 +69,11 @@ class Main extends Component {
             />
           </Stack.Navigator>
         ) : (
-          <BottomTab.Navigator>
+          <BottomTab.Navigator
+            tabBarOptions={{
+              activeTintColor: '#DB3022',
+              // labelStyle: {fontSize: 15},
+            }}>
             <BottomTab.Screen
               options={{
                 tabBarIcon: ({size, color, focused}) => (
@@ -79,6 +81,33 @@ class Main extends Component {
                 ),
               }}
               name="Home"
+              component={Home}
+            />
+            <BottomTab.Screen
+              options={{
+                tabBarIcon: ({size, color, focused}) => (
+                  <Icon name="shopping-cart" size={size} color={color} />
+                ),
+              }}
+              name="Shop"
+              component={Home}
+            />
+            <BottomTab.Screen
+              options={{
+                tabBarIcon: ({size, color, focused}) => (
+                  <Icon name="shopping-bag" size={size} color={color} />
+                ),
+              }}
+              name="Bag"
+              component={Home}
+            />
+            <BottomTab.Screen
+              options={{
+                tabBarIcon: ({size, color, focused}) => (
+                  <Icon name="heart" size={size} color={color} />
+                ),
+              }}
+              name="Favorite"
               component={Home}
             />
             <BottomTab.Screen

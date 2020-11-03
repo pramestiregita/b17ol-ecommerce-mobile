@@ -7,9 +7,6 @@ export default StyleSheet.create({
   content: {
     margin: 13,
   },
-  search: {
-    alignItems: 'flex-end',
-  },
   title: {
     marginTop: 25,
     marginBottom: 20,

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {View, ScrollView} from 'react-native';
 import {H1} from 'native-base';
 import {connect} from 'react-redux';
@@ -13,9 +12,6 @@ class MyOrder extends Component {
     return (
       <ScrollView>
         <View style={style.parent}>
-          <View style={style.search}>
-            <Icon size={20} name="search" />
-          </View>
           <View style={style.title}>
             <H1 style={style.titleText}>My Order</H1>
           </View>

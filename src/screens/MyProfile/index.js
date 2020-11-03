@@ -32,18 +32,14 @@ class MyProfile extends Component {
     return (
       <View style={style.parent}>
         <View style={style.content}>
-          <View style={style.search}>
-            <Icon size={20} name="search" />
-          </View>
           <View style={style.title}>
             <H1 style={style.titleText}>My Profile</H1>
           </View>
           {Object.keys(data).length > 0 &&
             data.map((i) => (
-              <View style={style.profileWrapper}>
+              <View key={i.id} style={style.profileWrapper}>
                 <Thumbnail
                   large
-                  // source={placeholder}
                   source={
                     i.profile_picture
                       ? {uri: API_URL.concat(i.profile_picture)}
