@@ -14,6 +14,7 @@ import Login from '../Login';
 import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
+import MyBag from '../MyBag';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
 import ShippingAddress from '../ShippingAddress';
@@ -29,6 +30,10 @@ const ProfileStack = () => {
           </TouchableOpacity>
         ),
         headerRightContainerStyle: {paddingHorizontal: 20},
+        headerStyle: {
+          backgroundColor: 'none',
+          elevation: 0,
+        },
       }}>
       <Stack.Screen name="MyProfile" component={MyProfile} />
       <Stack.Screen name="MyOrder" component={MyOrder} />
@@ -56,6 +61,27 @@ const AuthStack = () => {
   );
 };
 
+const MyBagStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        title: '',
+        headerRight: () => (
+          <TouchableOpacity>
+            <Icon name="search" size={20} />
+          </TouchableOpacity>
+        ),
+        headerRightContainerStyle: {paddingHorizontal: 20},
+        headerStyle: {
+          backgroundColor: 'none',
+          elevation: 0,
+        },
+      }}>
+      <Stack.Screen name="MyBag" component={MyBag} />
+    </Stack.Navigator>
+  );
+};
+
 class Main extends Component {
   render() {
     return (
@@ -72,7 +98,6 @@ class Main extends Component {
           <BottomTab.Navigator
             tabBarOptions={{
               activeTintColor: '#DB3022',
-              // labelStyle: {fontSize: 15},
             }}>
             <BottomTab.Screen
               options={{
@@ -99,7 +124,7 @@ class Main extends Component {
                 ),
               }}
               name="Bag"
-              component={Home}
+              component={MyBagStack}
             />
             <BottomTab.Screen
               options={{
