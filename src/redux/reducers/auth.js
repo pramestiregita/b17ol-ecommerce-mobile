@@ -54,6 +54,16 @@ export default (state = initialState, action) => {
         alertMsg: action.payload.data.message,
       };
     }
+    case 'LOGOUT': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isLogin: false,
+        token: '',
+        alertMsg: 'Logout Successfuly',
+      };
+    }
     default: {
       return state;
     }

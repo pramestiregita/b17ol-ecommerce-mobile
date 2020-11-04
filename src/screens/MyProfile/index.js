@@ -10,6 +10,7 @@ import style from './style';
 import userAction from '../../redux/actions/user';
 import orderAction from '../../redux/actions/order';
 import addressAction from '../../redux/actions/address';
+import authAction from '../../redux/actions/auth';
 
 import placeholder from '../../assets/avatar.png';
 
@@ -34,6 +35,10 @@ class MyProfile extends Component {
       orders: this.props.orderPage.totalData,
       addresses: this.props.addressPage.totalData,
     });
+  };
+
+  logout = () => {
+    this.props.doLogout();
   };
 
   render() {
@@ -101,6 +106,17 @@ class MyProfile extends Component {
                 <Icon style={style.listIcon} name="chevron-right" />
               </Right>
             </ListItem>
+            <ListItem onPress={this.logout} button>
+              <Left style={style.listLeft}>
+                <Text style={[style.listTitle, style.logout]}>Logout</Text>
+              </Left>
+              <Right>
+                <Icon
+                  style={[style.listIcon, style.logout]}
+                  name="chevron-right"
+                />
+              </Right>
+            </ListItem>
           </List>
         </View>
       </View>
@@ -119,6 +135,7 @@ const mapDispatchToProps = {
   getProfile: userAction.getDetail,
   getOrder: orderAction.getTransaction,
   getAddress: addressAction.getAddress,
+  doLogout: authAction.logout,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);

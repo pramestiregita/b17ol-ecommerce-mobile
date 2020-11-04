@@ -45,4 +45,7 @@ export default StyleSheet.create({
   listIcon: {
     color: 'grey',
   },
+  logout: {
+    color: '#DB3022',
+  },
 });
