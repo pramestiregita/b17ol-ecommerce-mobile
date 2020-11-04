@@ -56,11 +56,21 @@ export default class Home extends Component {
   };
 
   renderNew = ({item}) => {
-    return <New item={item} />;
+    return (
+      <New
+        item={item}
+        onPress={() => this.props.navigation.navigate('ProductDetail')}
+      />
+    );
   };
 
   renderPopular = ({item}) => {
-    return <Popular item={item} />;
+    return (
+      <Popular
+        item={item}
+        onPress={() => this.props.navigation.navigate('ProductDetail')}
+      />
+    );
   };
 
   render() {

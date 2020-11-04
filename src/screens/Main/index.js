@@ -14,6 +14,7 @@ import Login from '../Login';
 import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
 import Home from '../Home';
+import ProductDetail from '../ProductDetail';
 import Categories from '../Categories';
 import CategoryDetail from '../CategoryDetail';
 import MyBag from '../MyBag';
@@ -196,6 +197,11 @@ class Main extends Component {
               options={{headerShown: false}}
               name="Tabbed"
               component={Tab}
+            />
+            <Stack.Screen
+              options={{headerTitleAlign: 'center'}}
+              name="ProductDetail"
+              component={ProductDetail}
             />
             <Stack.Screen
               options={{headerShown: false}}

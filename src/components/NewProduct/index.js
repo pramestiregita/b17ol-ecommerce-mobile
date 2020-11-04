@@ -7,7 +7,7 @@ import Star from '../StarRatings';
 
 export default function CardProduct({item, onPress}) {
   return (
-    <TouchableOpacity onPress={() => console.log(item.id)}>
+    <TouchableOpacity onPress={onPress}>
       <Card style={style.card}>
         <Image style={style.img} square large source={item.img} />
         <Text style={style.badge}>New</Text>
