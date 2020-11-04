@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   parent: {
     flex: 1,
-    marginHorizontal: 25,
+    margin: 25,
   },
   cardWrapper: {
     marginVertical: 5,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     fontSize: 15,
   },
   input: {
-    fontSize: 12,
+    fontSize: 15,
   },
   btn: {
     marginTop: 10,

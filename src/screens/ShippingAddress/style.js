@@ -25,4 +25,19 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
+  btnWrapper: {
+    backgroundColor: 'white',
+    padding: 20,
+  },
+  btn: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText: {
+    textTransform: 'uppercase',
+  },
 });

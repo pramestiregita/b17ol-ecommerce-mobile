@@ -40,7 +40,7 @@ export default function Settings(props) {
     </View>
   );
 
-  const sheetRef = React.useRef();
+  const sheetRef = React.createRef();
 
   return (
     <>
@@ -108,9 +108,9 @@ export default function Settings(props) {
         </Content>
       </Container>
       <BottomSheet
-        // ref={sheetRef}
-        initialSnap={1}
-        snapPoints={[400, 0]}
+        ref={sheetRef}
+        initialSnap={2}
+        snapPoints={[400, 200, 0]}
         borderRadius={10}
         renderContent={renderContent}
       />

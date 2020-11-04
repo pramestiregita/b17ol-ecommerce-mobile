@@ -23,6 +23,7 @@ import Success from '../Success';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
 import ShippingAddress from '../ShippingAddress';
+import AddAddress from '../AddAddress';
 import Settings from '../Settings';
 import ChangeProfile from '../ChangeProfile';
 
@@ -45,6 +46,7 @@ const ProfileStack = () => {
       <Stack.Screen name="MyProfile" component={MyProfile} />
       <Stack.Screen name="MyOrder" component={MyOrder} />
       <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
+      <Stack.Screen name="AddAddress" component={AddAddress} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="ChangeProfile" component={ChangeProfile} />
     </Stack.Navigator>
