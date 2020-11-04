@@ -16,26 +16,35 @@ import placeholder from '../../assets/avatar.png';
 class MyProfile extends Component {
   state = {
     token: this.props.token,
+    data: [],
+    orders: '',
+    addresses: '',
   };
 
-  componentDidMount() {
-    this.props.getProfile(this.state.token);
-    this.props.getOrder(this.state.token);
-    this.props.getAddress(this.state.token);
+  async componentDidMount() {
+    await this.props.getProfile(this.state.token);
+    await this.props.getOrder(this.state.token);
+    await this.props.getAddress(this.state.token);
+    this.setData();
   }
 
+  setData = () => {
+    this.setState({
+      data: this.props.profile.data,
+      orders: this.props.orderPage.totalData,
+      addresses: this.props.addressPage.totalData,
+    });
+  };
+
   render() {
-    console.log(API_URL);
-    const {data} = this.props.profile;
-    const {totalData: orders} = this.props.orderPage;
-    const {totalData: addresses} = this.props.addressPage;
+    const {data, orders, addresses} = this.state;
     return (
       <View style={style.parent}>
         <View style={style.content}>
           <View style={style.title}>
             <H1 style={style.titleText}>My Profile</H1>
           </View>
-          {Object.keys(data).length > 0 &&
+          {data.length > 0 &&
             data.map((i) => (
               <View key={i.id} style={style.profileWrapper}>
                 <Thumbnail

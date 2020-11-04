@@ -7,16 +7,9 @@ export default StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    marginBottom: 5,
-  },
-  subTitle: {
-    fontSize: 16,
-    marginVertical: 10,
-    fontWeight: 'bold',
+    marginBottom: 20,
   },
   inputCard: {
-    justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 10,
     marginVertical: 10,
     paddingVertical: 15,
@@ -39,18 +32,20 @@ export default StyleSheet.create({
     fontSize: 19,
     borderBottomWidth: 0,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  labelText: {
+    fontSize: 16,
+    color: 'grey',
   },
-  notif: {
-    flexDirection: 'row',
-    marginVertical: 10,
+  gender: {
+    color: 'black',
   },
-  bottomSheet: {
-    backgroundColor: 'white',
-    padding: 20,
-    height: '100%',
+  btn: {
+    marginVertical: 20,
+    backgroundColor: '#DB3022',
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
 });

@@ -27,6 +27,27 @@ export default (state = initialState, action) => {
         data: action.payload.data.data,
       };
     }
+    case 'UPDATE_DETAIL_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'UPDATE_DETAIL_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'UPDATE_DETAIL_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload.data,
+      };
+    }
     default: {
       return state;
     }
