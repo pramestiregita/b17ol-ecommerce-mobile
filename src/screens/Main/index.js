@@ -23,6 +23,7 @@ import Success from '../Success';
 import MyProfile from '../MyProfile';
 import MyOrder from '../MyOrder';
 import ShippingAddress from '../ShippingAddress';
+import Settings from '../Settings';
 
 const ProfileStack = () => {
   return (
@@ -43,6 +44,7 @@ const ProfileStack = () => {
       <Stack.Screen name="MyProfile" component={MyProfile} />
       <Stack.Screen name="MyOrder" component={MyOrder} />
       <Stack.Screen name="ShippingAddress" component={ShippingAddress} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 };

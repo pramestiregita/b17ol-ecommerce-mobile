@@ -10,12 +10,12 @@ export default class StarRatings extends Component {
       <View style={styles.parent}>
         {[...Array(5)].map((i, o) => {
           if (this.props.q === null) {
-            return <Image source={grey} />;
+            return <Image key={o} source={grey} />;
           }
           if (o + 1 <= Math.round(this.props.q)) {
-            return <Image source={yellow} />;
+            return <Image key={o} source={yellow} />;
           }
-          return <Image source={grey} />;
+          return <Image key={o} source={grey} />;
         })}
       </View>
     );

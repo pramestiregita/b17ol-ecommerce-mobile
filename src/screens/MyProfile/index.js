@@ -81,7 +81,9 @@ class MyProfile extends Component {
                 <Icon style={style.listIcon} name="chevron-right" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem
+              onPress={() => this.props.navigation.navigate('Settings')}
+              button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>Settings</Text>
                 <Text style={style.listDesc}>Notification, Password</Text>
