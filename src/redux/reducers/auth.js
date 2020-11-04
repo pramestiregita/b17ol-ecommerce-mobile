@@ -61,7 +61,7 @@ export default (state = initialState, action) => {
         isError: false,
         isLogin: false,
         token: '',
-        alertMsg: 'Logout Successfuly',
+        alertMsg: '',
       };
     }
     default: {
