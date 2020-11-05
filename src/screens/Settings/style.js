@@ -51,6 +51,24 @@ export default StyleSheet.create({
   bottomSheet: {
     backgroundColor: 'white',
     padding: 20,
-    height: '100%',
+    height: 500,
+  },
+  bottomTitle: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  forgotLink: {
+    alignSelf: 'flex-end',
+    marginVertical: 3,
+  },
+  btn: {
+    marginTop: 10,
+    backgroundColor: '#DB3022',
+  },
+  btnText: {
+    color: 'white',
+    textTransform: 'uppercase',
   },
 });

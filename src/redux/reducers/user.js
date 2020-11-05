@@ -48,6 +48,28 @@ export default (state = initialState, action) => {
         data: action.payload.data,
       };
     }
+    case 'UPDATE_PASSWORD_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'UPDATE_PASSWORD_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload.response.data.message,
+      };
+    }
+    case 'UPDATE_PASSWORD_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        alertMsg: action.payload.data.message,
+      };
+    }
     default: {
       return state;
     }
