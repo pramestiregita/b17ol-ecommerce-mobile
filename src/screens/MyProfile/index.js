@@ -25,7 +25,8 @@ class MyProfile extends Component {
   async componentDidMount() {
     await this.props.getProfile(this.state.token);
     await this.props.getOrder(this.state.token);
-    await this.props.getAddress(this.state.token);
+    // await this.props.getAddress(this.state.token);
+    this.setAddress();
     this.setData();
   }
 
@@ -33,6 +34,13 @@ class MyProfile extends Component {
     this.setState({
       data: this.props.profile.data,
       orders: this.props.orderPage.totalData,
+      // addresses: this.props.addressPage.totalData,
+    });
+  };
+
+  setAddress = async () => {
+    await this.props.getAddress(this.state.token);
+    this.setState({
       addresses: this.props.addressPage.totalData,
     });
   };

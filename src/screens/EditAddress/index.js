@@ -16,6 +16,7 @@ class EditAddress extends Component {
     postalCode: '',
     phone: '',
   };
+
   componentDidMount() {
     const {id} = this.props.route.params;
     this.props.getData(this.props.token, id);
@@ -51,9 +52,16 @@ class EditAddress extends Component {
     this.props.update(this.props.token, this.props.route.params.id, data);
   };
 
+  setAddress = async () => {
+    await this.props.setData(this.props.token);
+  };
+
+  componentDidUpdate() {
+    this.setAddress();
+  }
+
   render() {
     const {name, fullname, address, city, postalCode, phone} = this.state;
-    // console.log(this.props.detail[0].recipient_phone);
     return (
       <>
         <ScrollView>
@@ -133,6 +141,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
+  setData: addressAction.getAddress,
   getData: addressAction.getDetail,
   update: addressAction.updateAddress,
 };
