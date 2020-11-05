@@ -12,8 +12,6 @@ import {connect} from 'react-redux';
 
 import style from './style';
 
-import List from '../../components/CardAddress';
-
 class ShippingAddress extends Component {
   render() {
     const {data} = this.props.address;
@@ -30,12 +28,32 @@ class ShippingAddress extends Component {
             </View>
             {Object.keys(data).length &&
               data.map((i, _o) => (
-                <List
-                  key={i.id}
-                  name={i.name}
-                  address={i.address}
-                  pri={i.isPrimary}
-                />
+                <Card key={i.id} style={style.parentCard}>
+                  <View
+                    style={[
+                      style.btnText,
+                      i.isPrimary === 1 ? style.selected : style.btnCard,
+                    ]}>
+                    <View style={style.header}>
+                      <Text style={style.name}>{i.name}</Text>
+                      <TouchableOpacity
+                        style={style.change}
+                        transparent
+                        onPress={() =>
+                          this.props.navigation.navigate('EditAddress', {
+                            id: i.id,
+                          })
+                        }>
+                        <Text>Change</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => console.log('add')}
+                      transparent>
+                      <Text>{i.address}</Text>
+                    </TouchableOpacity>
+                  </View>
+                </Card>
               ))}
           </View>
         </ScrollView>

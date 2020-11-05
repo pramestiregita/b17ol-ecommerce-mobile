@@ -32,4 +32,8 @@ export default StyleSheet.create({
     color: 'white',
     textTransform: 'uppercase',
   },
+  btnWrapper: {
+    marginHorizontal: 25,
+    marginBottom: 15,
+  },
 });

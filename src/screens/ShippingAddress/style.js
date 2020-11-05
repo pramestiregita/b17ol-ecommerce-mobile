@@ -40,4 +40,40 @@ export default StyleSheet.create({
   btnText: {
     textTransform: 'uppercase',
   },
+  parentCard: {
+    borderRadius: 6,
+    marginBottom: 15,
+  },
+  selected: {
+    borderRadius: 6,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'red',
+  },
+  btnCard: {
+    borderRadius: 6,
+    width: '100%',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  btnTextCard: {
+    width: '100%',
+  },
+  header: {
+    flexDirection: 'row',
+  },
+  name: {
+    flex: 1,
+    marginBottom: 8,
+    fontWeight: 'bold',
+  },
+  change: {
+    height: 20,
+  },
+  changeText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
 });

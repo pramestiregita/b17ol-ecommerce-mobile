@@ -10,4 +10,12 @@ export default {
     type: 'ADD_ADDRESS',
     payload: http(token).post('customer/my-address', qs.stringify(data)),
   }),
+  getDetail: (token, id) => ({
+    type: 'GET_DETAIL_ADDRESS',
+    payload: http(token).get(`customer/my-address/${id}`),
+  }),
+  updateAddress: (token, id, data) => ({
+    type: 'UPDATE_ADDRESS',
+    payload: http(token).patch(`customer/my-address/${id}`, qs.stringify(data)),
+  }),
 };

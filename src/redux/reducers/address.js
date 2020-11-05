@@ -1,5 +1,6 @@
 const initialState = {
   data: {},
+  detail: {},
   pageInfo: {},
   isLoading: false,
   isError: false,
@@ -45,6 +46,49 @@ export default (state = initialState, action) => {
       };
     }
     case 'ADD_ADDRESS_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        alertMsg: action.payload.data.message,
+      };
+    }
+    case 'GET_DETAIL_ADDRESS_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'GET_DETAIL_ADDRESS_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'GET_DETAIL_ADDRESS_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        detail: action.payload.data.data,
+      };
+    }
+    case 'UPDATE_ADDRESS_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'UPDATE_ADDRESS_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload,
+      };
+    }
+    case 'UPDATE_ADDRESS_FULFILLED': {
       return {
         ...state,
         isLoading: false,
