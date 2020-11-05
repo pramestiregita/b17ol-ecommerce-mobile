@@ -80,7 +80,7 @@ export default StyleSheet.create({
   },
   btn2: {
     width: '48%',
-    backgroundColor: '#884A6F',
+    backgroundColor: '#DB3022',
     borderRadius: 25,
   },
   btn2Text: {

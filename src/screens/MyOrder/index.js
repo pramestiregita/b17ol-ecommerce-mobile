@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, TouchableOpacity} from 'react-native';
 import {H1} from 'native-base';
 import {connect} from 'react-redux';
 
@@ -15,13 +15,17 @@ class MyOrder extends Component {
             <H1 style={style.titleText}>My Order</H1>
           </View>
           {this.props.orders.map((i, _o) => (
-            <List
-              key={i.transaction_id}
-              id={i.transaction_id}
-              qty={i.quantity}
-              sum={i.summary}
-              date={i.date}
-            />
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('OrderDetails')}
+              key={i.transaction_id}>
+              <List
+                key={i.transaction_id}
+                id={i.transaction_id}
+                qty={i.quantity}
+                sum={i.summary}
+                date={i.date}
+              />
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
