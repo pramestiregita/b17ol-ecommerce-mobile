@@ -4,6 +4,7 @@ const initialState = {
   pageInfo: {},
   isLoading: false,
   isError: false,
+  isSuccess: false,
   alertMsg: '',
 };
 
@@ -71,6 +72,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        isSuccess: true,
         detail: action.payload.data.data,
       };
     }
@@ -93,6 +95,7 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        isSuccess: true,
         alertMsg: action.payload.data.message,
       };
     }

@@ -15,42 +15,25 @@ import authAction from '../../redux/actions/auth';
 import placeholder from '../../assets/avatar.png';
 
 class MyProfile extends Component {
-  state = {
-    token: this.props.token,
-    data: [],
-    orders: '',
-    addresses: '',
-  };
-
-  async componentDidMount() {
-    await this.props.getProfile(this.state.token);
-    await this.props.getOrder(this.state.token);
-    // await this.props.getAddress(this.state.token);
-    this.setAddress();
-    this.setData();
-  }
-
-  setData = () => {
-    this.setState({
-      data: this.props.profile.data,
-      orders: this.props.orderPage.totalData,
-      // addresses: this.props.addressPage.totalData,
-    });
-  };
-
-  setAddress = async () => {
-    await this.props.getAddress(this.state.token);
-    this.setState({
-      addresses: this.props.addressPage.totalData,
-    });
-  };
+  setData = new Promise((resolve, reject) => {
+    this.props.getProfile(this.state.token);
+    this.props.getOrder(this.state.token);
+    this.props.getAddress(this.state.token);
+  });
 
   logout = () => {
     this.props.doLogout();
   };
 
+  async componentDidMount() {
+    await this.setData();
+  }
+
   render() {
-    const {data, orders, addresses} = this.state;
+    const {data} = this.props.profile;
+    const orders = this.props.orderPage;
+    const addresses = this.props.addressPage;
+
     return (
       <View style={style.parent}>
         <View style={style.content}>
@@ -82,7 +65,10 @@ class MyProfile extends Component {
               button>
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>My orders</Text>
-                <Text style={style.listDesc}>Already have {orders} orders</Text>
+                <Text style={style.listDesc}>
+                  Already have {orders ? orders : 0}{' '}
+                  {orders > 1 ? 'orders' : 'order'}
+                </Text>
               </Left>
               <Right>
                 <Icon style={style.listIcon} name="chevron-right" />
@@ -94,9 +80,8 @@ class MyProfile extends Component {
               <Left style={style.listLeft}>
                 <Text style={style.listTitle}>Shipping Addresses</Text>
                 <Text style={style.listDesc}>
-                  {addresses > 1
-                    ? addresses + ' addresses'
-                    : addresses + ' address'}
+                  {addresses ? addresses : 0}
+                  {addresses > 1 ? ' addresses' : ' address'}
                 </Text>
               </Left>
               <Right>
@@ -135,8 +120,8 @@ class MyProfile extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   profile: state.user,
-  orderPage: state.order.pageInfo,
-  addressPage: state.address.pageInfo,
+  orderPage: state.order.pageInfo.totalData,
+  addressPage: state.address.pageInfo.totalData,
 });
 
 const mapDispatchToProps = {

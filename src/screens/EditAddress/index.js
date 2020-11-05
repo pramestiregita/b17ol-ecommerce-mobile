@@ -15,18 +15,27 @@ class EditAddress extends Component {
     city: '',
     postalCode: '',
     phone: '',
+    save: false,
   };
 
   componentDidMount() {
-    const {id} = this.props.route.params;
-    this.props.getData(this.props.token, id);
+    // const {id} = this.props.route.params;
+    // this.props.getDetail(this.props.token, id);
+    // if (this.props.address.isSuccess) {
+    //   console.log('set');
+    //   this.setData();
+    // }
     this.setData();
   }
 
-  setData = async () => {
-    const data = await this.props.detail;
-    data.length &&
-      data.map((i, _o) => {
+  setData = () => {
+    // const data = this.props.detail;
+    // this.props.detail.length &&
+    const {id} = this.props.route.params;
+    this.props.getDetail(this.props.token, id);
+    if (this.props.address.isSuccess) {
+      console.log('true');
+      this.props.address.detail.map((i, _o) => {
         this.setState({
           name: i.name,
           fullname: i.recipient_name,
@@ -36,10 +45,11 @@ class EditAddress extends Component {
           phone: i.recipient_phone,
         });
       });
+    }
   };
 
   onSubmit = () => {
-    console.log(this.state);
+    // console.log(this.state);
     const {name, fullname, address, city, postalCode, phone} = this.state;
     const data = {
       name,
@@ -50,15 +60,20 @@ class EditAddress extends Component {
       recipient_phone: phone,
     };
     this.props.update(this.props.token, this.props.route.params.id, data);
+    if (this.props.address.isSuccess) {
+      console.log('success');
+      this.setAddress();
+    }
   };
 
-  setAddress = async () => {
-    await this.props.setData(this.props.token);
+  setAddress = () => {
+    this.props.getAddress(this.props.token);
   };
 
-  componentDidUpdate() {
-    this.setAddress();
-  }
+  // componentDidUpdate() {
+  //   console.log('did');
+  //   this.setAddress();
+  // }
 
   render() {
     const {name, fullname, address, city, postalCode, phone} = this.state;
@@ -137,12 +152,12 @@ class EditAddress extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-  detail: state.address.detail,
+  address: state.address,
 });
 
 const mapDispatchToProps = {
-  setData: addressAction.getAddress,
-  getData: addressAction.getDetail,
+  getAddress: addressAction.getAddress,
+  getDetail: addressAction.getDetail,
   update: addressAction.updateAddress,
 };
 
