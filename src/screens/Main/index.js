@@ -13,6 +13,7 @@ import Landingpage from '../Landingpage';
 import Login from '../Login';
 import Signup from '../Signup';
 import ForgotPassword from '../ForgotPassword';
+import ResetPassword from '../ResetPassword';
 import Home from '../Home';
 import ProductDetail from '../ProductDetail';
 import Categories from '../Categories';
@@ -71,6 +72,11 @@ const AuthStack = () => {
         options={{title: ''}}
         name="ForgotPassword"
         component={ForgotPassword}
+      />
+      <Stack.Screen
+        options={{title: ''}}
+        name="ResetPassword"
+        component={ResetPassword}
       />
     </Stack.Navigator>
   );

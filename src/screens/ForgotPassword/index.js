@@ -39,7 +39,9 @@ export default class ForgotPassword extends Component {
             </CardItem>
           </Card>
           <View style={style.btnWrapper}>
-            <Button style={style.btn}>
+            <Button
+              onPress={() => this.props.navigation.navigate('ResetPassword')}
+              style={style.btn}>
               <Text style={style.btnText}>send</Text>
             </Button>
           </View>
