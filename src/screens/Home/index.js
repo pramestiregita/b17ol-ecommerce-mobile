@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import {Container, Content} from 'native-base';
+import RNBootSplash from 'react-native-bootsplash';
 
 import styles from './style';
 import New from '../../components/NewProduct';
@@ -10,6 +11,10 @@ import header from '../../assets/header.png';
 import img from '../../assets/image.jpg';
 
 export default class Home extends Component {
+  componentDidMount() {
+    RNBootSplash.hide({});
+  }
+
   state = {
     data: [
       {

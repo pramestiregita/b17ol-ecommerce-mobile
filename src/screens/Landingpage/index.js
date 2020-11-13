@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Image, Text, View} from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 
 import style from './style';
 
@@ -7,6 +8,10 @@ import logo from '../../assets/shopping-bag.png';
 import {Button} from 'native-base';
 
 export default class SplashScreen extends Component {
+  componentDidMount() {
+    RNBootSplash.hide({});
+  }
+
   render() {
     return (
       <View style={style.parent}>
