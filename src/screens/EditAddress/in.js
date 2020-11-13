@@ -35,7 +35,7 @@ export default function EditProfile(params) {
                 Save address as (ex: home address, office address)
               </Text>
               <TextInput
-                onChangeText={(e) => setName(e)}
+                onChangeText={(e) => this.setState({name: e})}
                 style={style.input}
                 value={name}
               />
@@ -43,7 +43,7 @@ export default function EditProfile(params) {
             <View style={style.inputWrapper}>
               <Text style={style.label}>Recipient's Name</Text>
               <TextInput
-                onChangeText={(e) => setFullname(e)}
+                onChangeText={(e) => this.setState({fullname: e})}
                 style={style.input}
                 value={fullname}
               />
@@ -53,7 +53,7 @@ export default function EditProfile(params) {
             <View style={style.inputWrapper}>
               <Text style={style.label}>Address</Text>
               <Textarea
-                onChangeText={(e) => setAddress(e)}
+                onChangeText={(e) => this.setState({address: e})}
                 rowSpan={5}
                 style={style.input}
                 value={address}
@@ -62,7 +62,7 @@ export default function EditProfile(params) {
             <View style={style.inputWrapper}>
               <Text style={style.label}>City or Subdistrict</Text>
               <TextInput
-                onChangeText={(e) => setCity(e)}
+                onChangeText={(e) => this.setState({city: e})}
                 style={style.input}
                 value={city}
               />
@@ -70,7 +70,7 @@ export default function EditProfile(params) {
             <View style={style.inputWrapper}>
               <Text style={style.label}>Postal Code</Text>
               <TextInput
-                onChangeText={(e) => setPostalCode(e)}
+                onChangeText={(e) => this.setState({postalCode: e})}
                 style={style.input}
                 value={postalCode.toString()}
               />
@@ -80,7 +80,7 @@ export default function EditProfile(params) {
             <View style={style.inputWrapper}>
               <Text style={style.label}>Recipient's Phone Number</Text>
               <TextInput
-                onChangeText={(e) => setPhone(e)}
+                onChangeText={(e) => this.setState({phone: e})}
                 style={style.input}
                 value={phone.toString()}
               />

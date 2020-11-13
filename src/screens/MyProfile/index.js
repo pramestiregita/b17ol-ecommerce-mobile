@@ -15,25 +15,24 @@ import authAction from '../../redux/actions/auth';
 import placeholder from '../../assets/avatar.png';
 
 class MyProfile extends Component {
-  setData = new Promise((resolve, reject) => {
-    this.props.getProfile(this.state.token);
-    this.props.getOrder(this.state.token);
-    this.props.getAddress(this.state.token);
+  async componentDidMount() {
+    await this.setProfile;
+  }
+
+  setProfile = new Promise((resolve, reject) => {
+    this.props.getProfile(this.props.token);
+    this.props.getOrder(this.props.token);
+    this.props.getAddress(this.props.token);
   });
 
   logout = () => {
     this.props.doLogout();
   };
 
-  async componentDidMount() {
-    await this.setData();
-  }
-
   render() {
     const {data} = this.props.profile;
     const orders = this.props.orderPage;
     const addresses = this.props.addressPage;
-
     return (
       <View style={style.parent}>
         <View style={style.content}>
