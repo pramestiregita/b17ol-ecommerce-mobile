@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TouchableOpacity} from 'react-native';
@@ -29,14 +29,16 @@ import AddAddress from '../AddAddress';
 import EditAddress from '../EditAddress';
 import Settings from '../Settings';
 import ChangeProfile from '../ChangeProfile';
+import Search from '../Search';
 
 const ProfileStack = () => {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
         title: '',
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Icon name="search" size={20} />
           </TouchableOpacity>
         ),
@@ -83,12 +85,13 @@ const AuthStack = () => {
 };
 
 const MyBagStack = () => {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
         title: '',
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Icon name="search" size={20} />
           </TouchableOpacity>
         ),
@@ -105,12 +108,13 @@ const MyBagStack = () => {
 };
 
 const ShopStack = () => {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
         title: '',
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Icon name="search" size={20} />
           </TouchableOpacity>
         ),
@@ -223,6 +227,11 @@ class Main extends Component {
               options={{headerShown: false}}
               name="Success"
               component={Success}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Search"
+              component={Search}
             />
           </Stack.Navigator>
         )}
