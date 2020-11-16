@@ -28,4 +28,12 @@ export default StyleSheet.create({
     color: 'white',
     textTransform: 'uppercase',
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  rating: {
+    marginVertical: 10,
+  },
 });

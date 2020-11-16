@@ -10,12 +10,12 @@ export default class StarRatings extends Component {
       <View style={styles.parent}>
         {[...Array(5)].map((i, o) => {
           if (this.props.q === null) {
-            return <Image key={o} source={grey} />;
+            return <Image style={styles.star} key={o} source={grey} />;
           }
           if (o + 1 <= Math.round(this.props.q)) {
-            return <Image key={o} source={yellow} />;
+            return <Image style={styles.star} key={o} source={yellow} />;
           }
-          return <Image key={o} source={grey} />;
+          return <Image style={styles.star} key={o} source={grey} />;
         })}
       </View>
     );
@@ -25,5 +25,8 @@ export default class StarRatings extends Component {
 const styles = StyleSheet.create({
   parent: {
     flexDirection: 'row',
+  },
+  star: {
+    width: 18,
   },
 });
