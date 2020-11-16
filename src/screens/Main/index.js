@@ -16,6 +16,7 @@ import ForgotPassword from '../ForgotPassword';
 import ResetPassword from '../ResetPassword';
 import Home from '../Home';
 import ProductDetail from '../ProductDetail';
+import Review from '../Review';
 import Categories from '../Categories';
 import CategoryDetail from '../CategoryDetail';
 import MyBag from '../MyBag';
@@ -232,6 +233,17 @@ class Main extends Component {
               options={{headerShown: false}}
               name="Search"
               component={Search}
+            />
+            <Stack.Screen
+              options={{
+                title: 'Rating and reviews',
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 18,
+                },
+              }}
+              name="Review"
+              component={Review}
             />
           </Stack.Navigator>
         )}

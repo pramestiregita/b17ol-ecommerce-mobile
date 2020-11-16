@@ -78,10 +78,12 @@ export default class ProductDetail extends Component {
                   </View>
                   <Text style={style.price}>$19.99</Text>
                 </View>
-                <View style={style.rating}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('Review')}
+                  style={style.rating}>
                   <Star q={5} />
                   <Text style={style.review}>(10)</Text>
-                </View>
+                </TouchableOpacity>
                 <View>
                   <Text style={style.des}>
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
