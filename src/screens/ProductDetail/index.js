@@ -1,15 +1,66 @@
 import React, {Component} from 'react';
-import {Image, Text, View, ScrollView} from 'react-native';
-import {Button, Card, Container, Content} from 'native-base';
+import {
+  Image,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
+import {Button} from 'native-base';
 
 import style from './style';
 import Star from '../../components/StarRatings';
 import List from '../../components/NewProduct';
 
 import img from '../../assets/image.jpg';
-import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class ProductDetail extends Component {
+  state = {
+    data: [
+      {
+        id: 1,
+        img: img,
+        rating: 4,
+        store: 'Zalora',
+        name: 'Jacket',
+        price: '35$',
+      },
+      {
+        id: 2,
+        img: img,
+        rating: 4,
+        store: 'Zalora',
+        name: 'Jacket',
+        price: '35$',
+      },
+      {
+        id: 3,
+        img: img,
+        rating: 4,
+        store: 'Zalora',
+        name: 'Jacket',
+        price: '35$',
+      },
+      {
+        id: 4,
+        img: img,
+        rating: 4,
+        store: 'Zalora',
+        name: 'Jacket',
+        price: '35$',
+      },
+      {
+        id: 5,
+        img: img,
+        rating: 4,
+        store: 'Zalora',
+        name: 'Jacket',
+        price: '35$',
+      },
+    ],
+  };
+
   render() {
     return (
       <>
@@ -22,16 +73,17 @@ export default class ProductDetail extends Component {
               <View style={style.content}>
                 <View style={style.header}>
                   <View>
-                    <Text>H&M</Text>
-                    <Text>Short black dress</Text>
+                    <Text style={style.store}>H&M</Text>
+                    <Text style={style.name}>Short black dress</Text>
                   </View>
-                  <Text>$19.99</Text>
+                  <Text style={style.price}>$19.99</Text>
                 </View>
                 <View style={style.rating}>
                   <Star q={5} />
+                  <Text style={style.review}>(10)</Text>
                 </View>
                 <View>
-                  <Text>
+                  <Text style={style.des}>
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                     sed do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -42,13 +94,25 @@ export default class ProductDetail extends Component {
                     deserunt mollit anim id est laborum."
                   </Text>
                 </View>
-                <View>
-                  <TouchableOpacity>
-                    <Text>Color</Text>
+                <View style={style.colorWrapper}>
+                  <TouchableOpacity
+                    style={[style.circle, {borderColor: 'red'}]}>
+                    <View style={[style.color, {backgroundColor: 'red'}]}>
+                      <Text>&nbsp;</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
                 <View>
-                  <Text>You can also like this</Text>
+                  <View style={style.titleWrapper}>
+                    <Text style={style.title}>You can also like this</Text>
+                    <Text style={style.subtitle}>12 items</Text>
+                  </View>
+                  <FlatList
+                    horizontal
+                    data={this.state.data}
+                    renderItem={List}
+                    keyExtractor={(item) => item.id}
+                  />
                   <FlatList />
                 </View>
               </View>

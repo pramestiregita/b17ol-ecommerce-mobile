@@ -35,5 +35,57 @@ export default StyleSheet.create({
   },
   rating: {
     marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  review: {
+    marginLeft: 5,
+    color: 'grey',
+  },
+  circle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  color: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
+  colorWrapper: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  store: {
+    fontWeight: 'bold',
+    fontSize: 28,
+  },
+  name: {
+    color: 'grey',
+    fontSize: 16,
+  },
+  price: {
+    color: '#DB3022',
+    fontWeight: 'bold',
+    fontSize: 28,
+  },
+  des: {
+    marginVertical: 10,
+  },
+  title: {
+    marginVertical: 10,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  subtitle: {
+    color: 'grey',
+  },
+  titleWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
