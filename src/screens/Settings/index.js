@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, TouchableOpacity, ScrollView, Alert} from 'react-native';
 import {
@@ -7,7 +8,6 @@ import {
   Container,
   Content,
   H1,
-  H3,
   Input,
   Item,
   Label,
@@ -16,18 +16,24 @@ import {
   Right,
   Switch,
 } from 'native-base';
-import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 import style from './style';
 import userAction from '../../redux/actions/user';
 
+const passwordSchema = Yup.object().shape({
+  oldPassword: Yup.string().required('Please input your old password'),
+  newPassword: Yup.string().required('Please input your new password'),
+  confirmPassword: Yup.string()
+    .required('Please reenter your new password')
+    .oneOf([Yup.ref('newPassword'), null], "Password doesn't match"),
+});
+
 export default function Settings(props) {
   const [name, setName] = useState('');
   const [dob, setDob] = useState('');
-  const [old, setOld] = useState('');
-  const [newPass, setNew] = useState('');
-  const [confrim, setConfirm] = useState('');
 
   const dispatch = useDispatch();
 
@@ -35,7 +41,6 @@ export default function Settings(props) {
   const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    console.log(data.length);
     if (data.length) {
       const i = data[0];
       setName(i.name);
@@ -43,13 +48,7 @@ export default function Settings(props) {
     }
   }, [data]);
 
-  const onSubmit = () => {
-    console.log({old, newPass, confrim});
-    const body = {
-      oldPassword: old,
-      newPassword: newPass,
-      confrimPassword: confrim,
-    };
+  const onSubmit = (body) => {
     dispatch(userAction.updatePassword(token, body));
     showAlert();
   };
@@ -65,35 +64,78 @@ export default function Settings(props) {
   // }, []);
 
   const renderContent = () => (
-    <ScrollView>
-      <View style={style.bottomSheet}>
-        <Text style={style.bottomTitle}>Password Change</Text>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Old Password</Label>
-            <Input onChangeText={(e) => setOld(e)} style={style.input} />
-          </Item>
-        </Card>
-        <TouchableOpacity style={style.forgotLink}>
-          <Text>Forgot Password?</Text>
-        </TouchableOpacity>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>New Password</Label>
-            <Input onChangeText={(e) => setNew(e)} style={style.input} />
-          </Item>
-        </Card>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Repeat New Password</Label>
-            <Input onChangeText={(e) => setConfirm(e)} style={style.input} />
-          </Item>
-        </Card>
-        <Button onPress={() => onSubmit()} style={style.btn} rounded block>
-          <Text style={style.btnText}>Save Password</Text>
-        </Button>
-      </View>
-    </ScrollView>
+    <Formik
+      initialValues={{oldPassword: '', newPassword: '', confirmPassword: ''}}
+      onSubmit={(values) => onSubmit(values)}
+      validationSchema={passwordSchema}>
+      {({handleBlur, handleChange, handleSubmit, values, errors, touched}) => (
+        <ScrollView>
+          <View style={style.bottomSheet}>
+            <Text style={style.bottomTitle}>Password Change</Text>
+            <Card style={style.inputCard}>
+              <Item style={style.inputWrapper} floatingLabel>
+                <Label style={style.label}>Old Password</Label>
+                <Input
+                  secureTextEntry
+                  onChangeText={handleChange('oldPassword')}
+                  onBlur={handleBlur('oldPassword')}
+                  style={style.input}
+                  value={values.oldPassword}
+                />
+              </Item>
+              {errors.oldPassword && touched.oldPassword ? (
+                <View style={style.alertWrapper}>
+                  <Icon style={style.alertIcon} name="exclamation-triangle" />
+                  <Text style={style.alert}>{errors.oldPassword}</Text>
+                </View>
+              ) : null}
+            </Card>
+            <TouchableOpacity style={style.forgotLink}>
+              <Text>Forgot Password?</Text>
+            </TouchableOpacity>
+            <Card style={style.inputCard}>
+              <Item style={style.inputWrapper} floatingLabel>
+                <Label style={style.label}>New Password</Label>
+                <Input
+                  secureTextEntry
+                  onChangeText={handleChange('newPassword')}
+                  onBlur={handleBlur('newPassword')}
+                  style={style.input}
+                  value={values.newPassword}
+                />
+              </Item>
+              {errors.newPassword && touched.newPassword ? (
+                <View style={style.alertWrapper}>
+                  <Icon style={style.alertIcon} name="exclamation-triangle" />
+                  <Text style={style.alert}>{errors.newPassword}</Text>
+                </View>
+              ) : null}
+            </Card>
+            <Card style={style.inputCard}>
+              <Item style={style.inputWrapper} floatingLabel>
+                <Label style={style.label}>Repeat New Password</Label>
+                <Input
+                  secureTextEntry
+                  onChangeText={handleChange('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  style={style.input}
+                  value={values.confirmPassword}
+                />
+              </Item>
+              {errors.confirmPassword && touched.confirmPassword ? (
+                <View style={style.alertWrapper}>
+                  <Icon style={style.alertIcon} name="exclamation-triangle" />
+                  <Text style={style.alert}>{errors.confirmPassword}</Text>
+                </View>
+              ) : null}
+            </Card>
+            <Button onPress={handleSubmit} style={style.btn} rounded block>
+              <Text style={style.btnText}>Save Password</Text>
+            </Button>
+          </View>
+        </ScrollView>
+      )}
+    </Formik>
   );
 
   const sheetRef = React.createRef();
