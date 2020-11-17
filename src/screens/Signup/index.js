@@ -32,16 +32,10 @@ const signupSchema = Yup.object().shape({
 
 class Signup extends Component {
   state = {
-    name: '',
-    email: '',
-    password: '',
     alertMsg: '',
   };
 
   signup = (data) => {
-    // console.log(this.state);
-    // const {name, email, password} = this.state;
-    // const data = {name, email, password};
     this.props.doSignup(data);
   };
 

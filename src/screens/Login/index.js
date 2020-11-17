@@ -6,9 +6,6 @@ import {
   Button,
   Card,
   CardItem,
-  Container,
-  Content,
-  Form,
   H1,
   Input,
   Item,
@@ -30,14 +27,10 @@ const loginSchema = Yup.object().shape({
 
 class Login extends Component {
   state = {
-    email: '',
-    password: '',
     alertMsg: '',
   };
 
   login = (data) => {
-    // const {email, password} = this.state;
-    // const data = {email, password};
     this.props.doLogin(data);
   };
 
