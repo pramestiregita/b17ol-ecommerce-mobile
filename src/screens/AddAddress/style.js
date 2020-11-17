@@ -26,12 +26,24 @@ export default StyleSheet.create({
     marginTop: 10,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#884A6F',
+    backgroundColor: '#DB3022',
   },
   btnText: {
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
     textTransform: 'uppercase',
+  },
+  alertWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alert: {
+    fontStyle: 'italic',
+    color: '#e74b5b',
+  },
+  alertIcon: {
+    marginRight: 5,
+    color: '#e74b5b',
   },
 });
