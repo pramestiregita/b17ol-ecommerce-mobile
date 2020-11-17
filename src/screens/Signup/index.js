@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Alert, Text, View} from 'react-native';
+import {Alert, Text, View, TouchableOpacity} from 'react-native';
 import {
   Body,
   Button,
@@ -15,11 +15,20 @@ import {
   Item,
   Label,
 } from 'native-base';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 import style from './style';
 
 import authAction from '../../redux/actions/auth';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
+const signupSchema = Yup.object().shape({
+  name: Yup.string().required('Please insert your name'),
+  email: Yup.string()
+    .email('Please input a valid email')
+    .required('Please input your email'),
+  password: Yup.string().required('Please insert your password'),
+});
 
 class Signup extends Component {
   state = {
@@ -29,10 +38,10 @@ class Signup extends Component {
     alertMsg: '',
   };
 
-  signup = () => {
-    console.log(this.state);
-    const {name, email, password} = this.state;
-    const data = {name, email, password};
+  signup = (data) => {
+    // console.log(this.state);
+    // const {name, email, password} = this.state;
+    // const data = {name, email, password};
     this.props.doSignup(data);
   };
 
@@ -56,63 +65,110 @@ class Signup extends Component {
             <View style={style.title}>
               <H1 style={style.titleText}>Signup</H1>
             </View>
-            <Form>
-              <Card style={style.inputCard}>
-                <CardItem>
-                  <Body>
-                    <Item style={style.inputWrapper} floatingLabel>
-                      <Label style={style.label}>Name</Label>
-                      <Input
-                        onChangeText={(name) => this.setState({name})}
-                        style={style.input}
-                      />
-                    </Item>
-                  </Body>
-                </CardItem>
-              </Card>
-              <Card style={style.inputCard}>
-                <CardItem>
-                  <Body>
-                    <Item style={style.inputWrapper} floatingLabel>
-                      <Label style={style.label}>Email</Label>
-                      <Input
-                        onChangeText={(email) => this.setState({email})}
-                        style={style.input}
-                      />
-                    </Item>
-                  </Body>
-                </CardItem>
-              </Card>
-              <Card style={style.inputCard}>
-                <CardItem>
-                  <Body>
-                    <Item style={style.inputWrapper} floatingLabel>
-                      <Label style={style.label}>Password</Label>
-                      <Input
-                        onChangeText={(password) => this.setState({password})}
-                        style={style.input}
-                        secureTextEntry
-                      />
-                    </Item>
-                  </Body>
-                </CardItem>
-              </Card>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Login')}
-                style={style.linkWrapper}>
-                <Text style={style.textLink}>Already have an account?</Text>
-                <Icon
-                  style={style.iconLink}
-                  name="long-arrow-right"
-                  size={19}
-                />
-              </TouchableOpacity>
-              <View style={style.btnWrapper}>
-                <Button onPress={this.signup} style={style.btn}>
-                  <Text style={style.btnText}>sign up</Text>
-                </Button>
-              </View>
-            </Form>
+            <Formik
+              initialValues={{name: '', email: '', password: ''}}
+              validationSchema={signupSchema}
+              onSubmit={(values) => this.signup(values)}>
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+              }) => (
+                <Form>
+                  <Card style={style.inputCard}>
+                    <CardItem>
+                      <Body>
+                        <Item style={style.inputWrapper} floatingLabel>
+                          <Label style={style.label}>Name</Label>
+                          <Input
+                            onChangeText={handleChange('name')}
+                            onBlur={handleBlur('name')}
+                            style={style.input}
+                            value={values.name}
+                          />
+                        </Item>
+                        {errors.name && touched.name ? (
+                          <View style={style.alertWrapper}>
+                            <Icon
+                              style={style.alertIcon}
+                              name="exclamation-triangle"
+                            />
+                            <Text style={style.alert}>{errors.name}</Text>
+                          </View>
+                        ) : null}
+                      </Body>
+                    </CardItem>
+                  </Card>
+                  <Card style={style.inputCard}>
+                    <CardItem>
+                      <Body>
+                        <Item style={style.inputWrapper} floatingLabel>
+                          <Label style={style.label}>Email</Label>
+                          <Input
+                            onChangeText={handleChange('email')}
+                            onBlur={handleBlur('email')}
+                            style={style.input}
+                            value={values.email}
+                          />
+                        </Item>
+                        {errors.email && touched.email ? (
+                          <View style={style.alertWrapper}>
+                            <Icon
+                              style={style.alertIcon}
+                              name="exclamation-triangle"
+                            />
+                            <Text style={style.alert}>{errors.email}</Text>
+                          </View>
+                        ) : null}
+                      </Body>
+                    </CardItem>
+                  </Card>
+                  <Card style={style.inputCard}>
+                    <CardItem>
+                      <Body>
+                        <Item style={style.inputWrapper} floatingLabel>
+                          <Label style={style.label}>Password</Label>
+                          <Input
+                            onChangeText={handleChange('password')}
+                            onBlur={handleBlur('password')}
+                            style={style.input}
+                            secureTextEntry
+                            value={values.password}
+                          />
+                        </Item>
+                        {errors.password && touched.password ? (
+                          <View style={style.alertWrapper}>
+                            <Icon
+                              style={style.alertIcon}
+                              name="exclamation-triangle"
+                            />
+                            <Text style={style.alert}>{errors.password}</Text>
+                          </View>
+                        ) : null}
+                      </Body>
+                    </CardItem>
+                  </Card>
+                  <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Login')}
+                    style={style.linkWrapper}>
+                    <Text style={style.textLink}>Already have an account?</Text>
+                    <Icon
+                      style={style.iconLink}
+                      name="long-arrow-right"
+                      size={19}
+                    />
+                  </TouchableOpacity>
+                  <View style={style.btnWrapper}>
+                    <Button onPress={handleSubmit} style={style.btn}>
+                      <Text style={style.btnText}>sign up</Text>
+                    </Button>
+                  </View>
+                </Form>
+              )}
+            </Formik>
           </View>
         </Content>
       </Container>

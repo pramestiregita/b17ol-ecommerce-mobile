@@ -60,4 +60,16 @@ export default StyleSheet.create({
     textTransform: 'uppercase',
     color: 'white',
   },
+  alertWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alert: {
+    fontStyle: 'italic',
+    color: '#e74b5b',
+  },
+  alertIcon: {
+    marginRight: 5,
+    color: '#e74b5b',
+  },
 });
