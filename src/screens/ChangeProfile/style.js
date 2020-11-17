@@ -48,4 +48,16 @@ export default StyleSheet.create({
     fontSize: 16,
     textTransform: 'uppercase',
   },
+  alertWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alert: {
+    fontStyle: 'italic',
+    color: '#e74b5b',
+  },
+  alertIcon: {
+    marginRight: 5,
+    color: '#e74b5b',
+  },
 });

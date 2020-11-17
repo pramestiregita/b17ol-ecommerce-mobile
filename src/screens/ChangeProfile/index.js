@@ -1,110 +1,188 @@
 import React, {useEffect, useState} from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useDispatch, useSelector} from 'react-redux';
 import {View, Text, ScrollView} from 'react-native';
 import {Button, Card, Form, H3, Input, Item, Label, Picker} from 'native-base';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
 
 import style from './style';
 import userAction from '../../redux/actions/user';
 
-export default function ChangeProfile() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [genderId, setGenderId] = useState(0);
-  const [dob, setDob] = useState('');
+const profileSchema = Yup.object().shape({
+  name: Yup.string().required('Please insert your name'),
+  email: Yup.string()
+    .email('Please input a valid email')
+    .required('Please input your email'),
+  phone: Yup.string()
+    .required('Please input your phone number')
+    .max(13, 'Please input a valid phone number'),
+  genderId: Yup.number().required('Please choose your gender'),
+  birthdate: Yup.string().required('Please insert your birthdate'),
+});
 
-  const {data} = useSelector((state) => state.user);
+export default function ChangeProfile() {
+  const [detail, setDetail] = useState({});
+
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
-  const getData = () => {
-    dispatch(userAction.getDetail(token));
+  const getData = async () => {
+    const {value} = await dispatch(userAction.getDetail(token));
+    setDetail(value.data.data[0]);
   };
 
   useEffect(() => {
-    if (data.length) {
-      const i = data[0];
-      setName(i.name);
-      setEmail(i.email);
-      setPhone(i.phone);
-      setGenderId(i.gender_id);
-      setDob(i.birthdate);
-    }
-  }, [data]);
+    getData();
+  }, []);
 
-  const onSubmit = () => {
-    const updated = {
-      name,
-      email,
-      phone,
-      genderId,
-      birthdate: dob,
-    };
-    dispatch(userAction.updateDetail(token, updated)) && getData();
+  const onSubmit = (update) => {
+    dispatch(userAction.updateDetail(token, update));
+    getData();
   };
 
   return (
-    <ScrollView>
-      <View style={style.parent}>
-        <H3 style={style.title}>Change Personal Information</H3>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Full name</Label>
-            <Input
-              onChangeText={(e) => setName(e)}
-              style={style.input}
-              value={name}
-            />
-          </Item>
-        </Card>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Email</Label>
-            <Input
-              onChangeText={(e) => setEmail(e)}
-              style={style.input}
-              value={email}
-            />
-          </Item>
-        </Card>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Phone Number</Label>
-            <Input
-              onChangeText={(e) => setPhone(e)}
-              style={style.input}
-              value={phone.toString()}
-            />
-          </Item>
-        </Card>
-        <Card style={style.inputCard}>
-          <Text style={style.labelText}>Gender</Text>
-          <Form>
-            <Picker
-              note
-              mode="dropdown"
-              style={style.gender}
-              selectedValue={genderId}
-              onValueChange={(itemValue) => setGenderId(itemValue)}>
-              <Picker.Item label="Male" value={1} />
-              <Picker.Item label="Female" value={2} />
-            </Picker>
-          </Form>
-        </Card>
-        <Card style={style.inputCard}>
-          <Item style={style.inputWrapper} floatingLabel>
-            <Label style={style.label}>Date of Birth (yyyy-mm-dd)</Label>
-            <Input
-              onChangeText={(e) => setDob(e)}
-              style={style.input}
-              value={dob}
-            />
-          </Item>
-        </Card>
-        <Button onPress={() => onSubmit()} style={style.btn} block rounded>
-          <Text style={style.btnText}>Save</Text>
-        </Button>
-      </View>
-    </ScrollView>
+    Object.keys(detail).length > 1 && (
+      <ScrollView>
+        <View style={style.parent}>
+          <H3 style={style.title}>Change Personal Information</H3>
+          <Formik
+            initialValues={{
+              name: detail.name,
+              email: detail.email,
+              phone: detail.phone,
+              genderId: detail.gender_id,
+              birthdate: detail.birthdate,
+            }}
+            validationSchema={profileSchema}
+            onSubmit={(values) => onSubmit(values)}>
+            {({
+              setFieldValue,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <>
+                <Card style={style.inputCard}>
+                  <Item style={style.inputWrapper} floatingLabel>
+                    <Label style={style.label}>Full name</Label>
+                    <Input
+                      onChangeText={handleChange('name')}
+                      onBlur={handleBlur('name')}
+                      style={style.input}
+                      value={values.name}
+                    />
+                  </Item>
+                  {errors.name && touched.name ? (
+                    <View style={style.alertWrapper}>
+                      <Icon
+                        style={style.alertIcon}
+                        name="exclamation-triangle"
+                      />
+                      <Text style={style.alert}>{errors.name}</Text>
+                    </View>
+                  ) : null}
+                </Card>
+                <Card style={style.inputCard}>
+                  <Item style={style.inputWrapper} floatingLabel>
+                    <Label style={style.label}>Email</Label>
+                    <Input
+                      onChangeText={handleChange('email')}
+                      onBlur={handleBlur('email')}
+                      style={style.input}
+                      value={values.email}
+                    />
+                  </Item>
+                  {errors.email && touched.email ? (
+                    <View style={style.alertWrapper}>
+                      <Icon
+                        style={style.alertIcon}
+                        name="exclamation-triangle"
+                      />
+                      <Text style={style.alert}>{errors.email}</Text>
+                    </View>
+                  ) : null}
+                </Card>
+                <Card style={style.inputCard}>
+                  <Item style={style.inputWrapper} floatingLabel>
+                    <Label style={style.label}>Phone Number</Label>
+                    <Input
+                      onChangeText={handleChange('phone')}
+                      onBlur={handleBlur('phone')}
+                      style={style.input}
+                      value={values.phone.toString()}
+                    />
+                  </Item>
+                  {errors.phone && touched.phone ? (
+                    <View style={style.alertWrapper}>
+                      <Icon
+                        style={style.alertIcon}
+                        name="exclamation-triangle"
+                      />
+                      <Text style={style.alert}>{errors.phone}</Text>
+                    </View>
+                  ) : null}
+                </Card>
+                {console.log(values)}
+                <Card style={style.inputCard}>
+                  <Text style={style.labelText}>Gender</Text>
+                  <Form>
+                    <Picker
+                      note
+                      mode="dropdown"
+                      style={style.gender}
+                      selectedValue={values.genderId}
+                      onBlur={handleBlur('genderId')}
+                      onValueChange={(itemValue) =>
+                        setFieldValue('genderId', itemValue)
+                      }>
+                      <Picker.Item label="Male" value={1} />
+                      <Picker.Item label="Female" value={2} />
+                    </Picker>
+                  </Form>
+                  {errors.genderId && touched.genderId ? (
+                    <View style={style.alertWrapper}>
+                      <Icon
+                        style={style.alertIcon}
+                        name="exclamation-triangle"
+                      />
+                      <Text style={style.alert}>{errors.genderId}</Text>
+                    </View>
+                  ) : null}
+                </Card>
+                <Card style={style.inputCard}>
+                  <Item style={style.inputWrapper} floatingLabel>
+                    <Label style={style.label}>
+                      Date of Birth (yyyy-mm-dd)
+                    </Label>
+                    <Input
+                      onChangeText={handleChange('birthdate')}
+                      onBlur={handleBlur('birthdate')}
+                      style={style.input}
+                      value={values.birthdate}
+                    />
+                  </Item>
+                  {errors.birthdate && touched.birthdate ? (
+                    <View style={style.alertWrapper}>
+                      <Icon
+                        style={style.alertIcon}
+                        name="exclamation-triangle"
+                      />
+                      <Text style={style.alert}>{errors.birthdate}</Text>
+                    </View>
+                  ) : null}
+                </Card>
+                <Button onPress={handleSubmit} style={style.btn} block rounded>
+                  <Text style={style.btnText}>Save</Text>
+                </Button>
+              </>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
+    )
   );
 }
