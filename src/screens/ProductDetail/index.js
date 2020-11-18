@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {Button} from 'native-base';
+import {Button, Toast} from 'native-base';
 import {API_URL} from '@env';
 
 import style from './style';
@@ -87,8 +87,19 @@ class ProductDetail extends Component {
       quantity: 1,
     };
     const {value} = await this.props.add(this.props.token, data);
-    // console.log(value);
-    this.getCart();
+    if (value.data.success) {
+      this.getCart();
+      Toast.show({
+        text: value.data.message,
+        duration: 3000,
+        position: 'top',
+        type: 'success',
+        textStyle: {
+          fontWeight: 'bold',
+          justifyContent: 'center',
+        },
+      });
+    }
   };
 
   getCart = () => {

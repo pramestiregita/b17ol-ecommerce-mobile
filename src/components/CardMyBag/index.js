@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Text, View, TouchableOpacity} from 'react-native';
-import {ActionSheet, Card, Thumbnail} from 'native-base';
+import {ActionSheet, Card, Thumbnail, Toast} from 'native-base';
 import {API_URL} from '@env';
 
 import style from './style';
@@ -19,7 +19,6 @@ const CANCEL_INDEX = 1;
 export default function CardMyBag({item}) {
   const [qty, setQty] = useState(item.quantity);
   const {token} = useSelector((state) => state.auth);
-  const {isDeleted} = useSelector((state) => state.cart);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -32,8 +31,19 @@ export default function CardMyBag({item}) {
   };
 
   const deleteCart = async (id) => {
-    await dispatch(cartAction.deleteCart(token, id));
-    isDeleted && getCart();
+    const {value} = await dispatch(cartAction.deleteCart(token, id));
+    if (value.data.success) {
+      Toast.show({
+        text: 'Product deleted from cart',
+        duration: 3000,
+        position: 'top',
+        type: 'success',
+        textStyle: {
+          fontWeight: 'bold',
+        },
+      });
+      getCart();
+    }
   };
 
   const getCart = () => {

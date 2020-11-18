@@ -31,7 +31,6 @@ class MyBag extends Component {
   }
 
   render() {
-    console.log(this.state);
     const {isError, alertMsg, data, summary} = this.props.cart;
     return (
       <>

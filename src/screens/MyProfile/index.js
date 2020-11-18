@@ -2,7 +2,16 @@ import React, {Component} from 'react';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Alert, Text, TouchableOpacity, View} from 'react-native';
-import {H1, H3, Left, List, ListItem, Right, Thumbnail} from 'native-base';
+import {
+  H1,
+  H3,
+  Left,
+  List,
+  ListItem,
+  Right,
+  Thumbnail,
+  Toast,
+} from 'native-base';
 import {connect} from 'react-redux';
 import {API_URL} from '@env';
 
@@ -58,6 +67,15 @@ class MyProfile extends Component {
         const {value} = await this.props.updateAva(this.props.token, form);
         if (value.data.success) {
           this.setProfile();
+          Toast.show({
+            text: value.data.message,
+            duration: 3000,
+            position: 'top',
+            type: 'success',
+            textStyle: {
+              fontWeight: 'bold',
+            },
+          });
         }
       }
     });
