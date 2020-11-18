@@ -15,6 +15,7 @@ import style from './style';
 import Star from '../../components/StarRatings';
 import List from '../../components/NewProduct';
 import productAction from '../../redux/actions/product';
+import cartAction from '../../redux/actions/cart';
 import Rupiah from '../../helpers/currency';
 
 import img from '../../assets/image.jpg';
@@ -79,8 +80,14 @@ class ProductDetail extends Component {
     this.getDetail();
   }
 
-  addCart = () => {
-    console.log('add');
+  addCart = async (id) => {
+    console.log(id);
+    const data = {
+      productId: id,
+      quantity: 1,
+    };
+    const {value} = await this.props.add(this.props.token, data);
+    console.log(value);
   };
 
   render() {
@@ -148,7 +155,7 @@ class ProductDetail extends Component {
             </ScrollView>
             <View style={style.btnWrapper}>
               <Button
-                onPress={() => this.addCart()}
+                onPress={() => this.addCart(product.id)}
                 style={style.btn}
                 block
                 rounded>
@@ -162,10 +169,13 @@ class ProductDetail extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+});
 
 const mapDispatchToProps = {
   detail: productAction.getProduct,
+  add: cartAction.addCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
