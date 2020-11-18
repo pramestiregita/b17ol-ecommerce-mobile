@@ -62,4 +62,11 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  nameWrapper: {
+    flex: 1,
+  },
 });

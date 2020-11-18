@@ -13,27 +13,15 @@ class MyBag extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: [],
-      total: 0,
       pageInfo: {},
     };
   }
-  getData = async () => {
-    const {value} = await this.props.get(this.props.token);
-    this.setState({
-      product: value.data.results,
-      total: value.data.summary,
-      pageInfo: value.data.pageInfo,
-    });
-  };
 
   setData = async () => {
-    const {data, pageInfo, summary} = this.props.cart;
-    if (data.length) {
+    const {pageInfo} = this.props.cart;
+    if (pageInfo.length) {
       this.setState({
-        product: data,
-        total: summary,
-        pageInfo: pageInfo,
+        pageInfo,
       });
     }
   };
@@ -43,23 +31,30 @@ class MyBag extends Component {
   }
 
   render() {
-    const {product, total} = this.state;
+    console.log(this.state);
+    const {isError, alertMsg, data, summary} = this.props.cart;
     return (
       <>
         <View style={style.parent}>
           <View style={style.title}>
             <Text style={style.titleText}>My Bag</Text>
           </View>
-          <FlatList
-            data={product}
-            renderItem={({item}) => <List item={item} />}
-          />
+          {Object.keys(data).length > 0 ? (
+            <FlatList
+              data={data}
+              renderItem={({item}) => <List item={item} />}
+            />
+          ) : (
+            <View>
+              <Text>{isError && alertMsg}</Text>
+            </View>
+          )}
         </View>
         <View style={style.checkoutWrapper}>
           <View style={style.text}>
             <Text style={style.total}>Total amount :</Text>
             <Text style={style.price}>
-              <Rupiah value={total} />
+              <Rupiah value={summary} />
             </Text>
           </View>
           <Button

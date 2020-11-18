@@ -10,4 +10,8 @@ export default {
     type: 'GET_CART',
     payload: http(token).get('customer/cart'),
   }),
+  deleteCart: (token, id) => ({
+    type: 'DELETE_CART',
+    payload: http(token).delete(`customer/cart/${id}`),
+  }),
 };

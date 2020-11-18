@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
+  isDeleted: false,
 };
 
 export default (state = initialState, action) => {
@@ -45,6 +46,9 @@ export default (state = initialState, action) => {
         isLoading: false,
         isError: true,
         alertMsg: action.payload.response.data.message,
+        data: [],
+        pageInfo: {},
+        summary: 0,
       };
     }
     case 'GET_CART_FULFILLED': {
@@ -55,6 +59,29 @@ export default (state = initialState, action) => {
         data: action.payload.data.results,
         pageInfo: action.payload.data.pageInfo,
         summary: action.payload.data.summary,
+      };
+    }
+    case 'DELETE_CART_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'DELETE_CART_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload.response.data.message,
+      };
+    }
+    case 'DELETE_CART_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isDeleted: true,
+        alertMsg: action.payload.data.message,
       };
     }
     default: {
