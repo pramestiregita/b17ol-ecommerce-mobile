@@ -14,4 +14,8 @@ export default {
     type: 'UPDATE_PASSWORD',
     payload: http(token).patch('customer/change-password', qs.stringify(data)),
   }),
+  updateAvatar: (token, data) => ({
+    type: 'UPDATE_AVATAR',
+    payload: http(token).patch('customer/edit/avatar', data),
+  }),
 };

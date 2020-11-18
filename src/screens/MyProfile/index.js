@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Text, View} from 'react-native';
+import {Alert, Text, TouchableOpacity, View} from 'react-native';
 import {H1, H3, Left, List, ListItem, Right, Thumbnail} from 'native-base';
 import {connect} from 'react-redux';
 import {API_URL} from '@env';
@@ -15,18 +16,51 @@ import authAction from '../../redux/actions/auth';
 import placeholder from '../../assets/avatar.png';
 
 class MyProfile extends Component {
-  async componentDidMount() {
-    await this.setProfile;
+  componentDidMount() {
+    this.setProfile();
   }
 
-  setProfile = new Promise((resolve, reject) => {
+  setProfile = () => {
     this.props.getProfile(this.props.token);
     this.props.getOrder(this.props.token);
     this.props.getAddress(this.props.token);
-  });
+  };
 
   logout = () => {
     this.props.doLogout();
+  };
+
+  avatar = () => {
+    const form = new FormData();
+    const options = {
+      title: 'You can choose one image',
+      maxWidth: 256,
+      maxHeight: 256,
+      storageOptions: {
+        skipBackup: true,
+      },
+      noData: true,
+      mediaType: 'photo',
+    };
+    ImagePicker.showImagePicker(options, async (response) => {
+      if (response.didCancel) {
+        Alert.alert("You didn't select an image");
+      } else if (response.error) {
+        Alert.alert('Try again later!');
+      } else if (response.fileSize > 30000) {
+        Alert.alert('File is too big');
+      } else {
+        form.append('picture', {
+          uri: response.uri,
+          name: response.fileName,
+          type: response.type,
+        });
+        const {value} = await this.props.updateAva(this.props.token, form);
+        if (value.data.success) {
+          this.setProfile();
+        }
+      }
+    });
   };
 
   render() {
@@ -42,14 +76,16 @@ class MyProfile extends Component {
           {data.length > 0 &&
             data.map((i) => (
               <View key={i.id} style={style.profileWrapper}>
-                <Thumbnail
-                  large
-                  source={
-                    i.profile_picture
-                      ? {uri: API_URL.concat(i.profile_picture)}
-                      : placeholder
-                  }
-                />
+                <TouchableOpacity onPress={() => this.avatar()}>
+                  <Thumbnail
+                    large
+                    source={
+                      i.profile_picture
+                        ? {uri: API_URL.concat(i.profile_picture)}
+                        : placeholder
+                    }
+                  />
+                </TouchableOpacity>
                 <View style={style.profile}>
                   <H3 style={style.profileName}>{i.name}</H3>
                   <Text style={style.profileEmail}>{i.email}</Text>
@@ -128,6 +164,7 @@ const mapDispatchToProps = {
   getOrder: orderAction.getTransaction,
   getAddress: addressAction.getAddress,
   doLogout: authAction.logout,
+  updateAva: userAction.updateAvatar,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile);
