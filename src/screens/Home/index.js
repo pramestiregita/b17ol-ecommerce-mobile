@@ -17,11 +17,15 @@ class Home extends Component {
     super(props);
     this.state = {
       new: [],
+      popular: [],
     };
   }
+
   getNew = async () => {
-    const {value} = await this.props.new();
-    this.setState({new: value.data.data});
+    const {value: valueNew} = await this.props.new();
+    const {value: valuePopular} = await this.props.popular();
+    console.log(valuePopular);
+    this.setState({new: valueNew.data.data, popular: valuePopular.data.data});
   };
 
   componentDidMount() {
@@ -29,71 +33,7 @@ class Home extends Component {
     this.getNew();
   }
 
-  // state = {
-  //   data: [
-  //     {
-  //       id: 1,
-  //       img: img,
-  //       rating: 4,
-  //       store: 'Zalora',
-  //       name: 'Jacket',
-  //       price: '35$',
-  //     },
-  //     {
-  //       id: 2,
-  //       img: img,
-  //       rating: 4,
-  //       store: 'Zalora',
-  //       name: 'Jacket',
-  //       price: '35$',
-  //     },
-  //     {
-  //       id: 3,
-  //       img: img,
-  //       rating: 4,
-  //       store: 'Zalora',
-  //       name: 'Jacket',
-  //       price: '35$',
-  //     },
-  //     {
-  //       id: 4,
-  //       img: img,
-  //       rating: 4,
-  //       store: 'Zalora',
-  //       name: 'Jacket',
-  //       price: '35$',
-  //     },
-  //     {
-  //       id: 5,
-  //       img: img,
-  //       rating: 4,
-  //       store: 'Zalora',
-  //       name: 'Jacket',
-  //       price: '35$',
-  //     },
-  //   ],
-  // };
-
-  renderNew = ({item}) => {
-    return (
-      <New
-        item={item}
-        onPress={() => this.props.navigation.navigate('ProductDetail')}
-      />
-    );
-  };
-
-  renderPopular = ({item}) => {
-    return (
-      <Popular
-        item={item}
-        onPress={() => this.props.navigation.navigate('ProductDetail')}
-      />
-    );
-  };
-
   render() {
-    console.log(this.state.new);
     return (
       <Container>
         <Content>
@@ -117,7 +57,7 @@ class Home extends Component {
               <FlatList
                 horizontal
                 data={this.state.new}
-                renderItem={this.renderNew}
+                renderItem={({item}) => <New item={item} />}
                 keyExtractor={(item) => item.id}
               />
             </View>
@@ -135,8 +75,8 @@ class Home extends Component {
               </View>
               <FlatList
                 horizontal
-                data={this.state.data}
-                renderItem={this.renderPopular}
+                data={this.state.popular}
+                renderItem={({item}) => <Popular item={item} />}
                 keyExtractor={(item) => item.id}
               />
             </View>
@@ -151,6 +91,7 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
   new: productAction.getNew,
+  popular: productAction.getPopular,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

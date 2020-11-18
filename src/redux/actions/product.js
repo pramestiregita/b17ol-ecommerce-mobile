@@ -5,4 +5,8 @@ export default {
     type: 'GET_NEW',
     payload: http().get('new?limit=5'),
   }),
+  getPopular: () => ({
+    type: 'GET_POPULAR',
+    payload: http().get('popular?limit=5'),
+  }),
 };

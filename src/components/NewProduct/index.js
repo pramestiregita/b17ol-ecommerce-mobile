@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {Card} from 'native-base';
 import {API_URL} from '@env';
 
@@ -8,9 +9,11 @@ import Star from '../StarRatings';
 import img from '../../assets/image.jpg';
 import Rupiah from '../../helpers/currency';
 
-export default function CardProduct({item, onPress}) {
+export default function CardProduct({item}) {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetail', {id: item.id})}>
       <Card style={style.card}>
         <Image
           style={style.img}

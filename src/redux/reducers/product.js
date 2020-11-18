@@ -1,5 +1,6 @@
 const initialState = {
-  data: {},
+  new: {},
+  popular: {},
   isLoading: false,
   isError: false,
 };
@@ -24,7 +25,28 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload.data.data,
+        new: action.payload.data.data,
+      };
+    }
+    case 'GET_POPULAR_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'GET_POPULAR_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'GET_POPULAR_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        popular: action.payload.data.data,
       };
     }
   }
