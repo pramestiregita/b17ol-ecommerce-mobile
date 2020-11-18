@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Image, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import {Container, Content} from 'native-base';
 import RNBootSplash from 'react-native-bootsplash';
@@ -8,57 +9,70 @@ import New from '../../components/NewProduct';
 import Popular from '../../components/PopularProduct';
 
 import header from '../../assets/header.png';
-import img from '../../assets/image.jpg';
 
-export default class Home extends Component {
+import productAction from '../../redux/actions/product';
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      new: [],
+    };
+  }
+  getNew = async () => {
+    const {value} = await this.props.new();
+    this.setState({new: value.data.data});
+  };
+
   componentDidMount() {
     RNBootSplash.hide({});
+    this.getNew();
   }
 
-  state = {
-    data: [
-      {
-        id: 1,
-        img: img,
-        rating: 4,
-        store: 'Zalora',
-        name: 'Jacket',
-        price: '35$',
-      },
-      {
-        id: 2,
-        img: img,
-        rating: 4,
-        store: 'Zalora',
-        name: 'Jacket',
-        price: '35$',
-      },
-      {
-        id: 3,
-        img: img,
-        rating: 4,
-        store: 'Zalora',
-        name: 'Jacket',
-        price: '35$',
-      },
-      {
-        id: 4,
-        img: img,
-        rating: 4,
-        store: 'Zalora',
-        name: 'Jacket',
-        price: '35$',
-      },
-      {
-        id: 5,
-        img: img,
-        rating: 4,
-        store: 'Zalora',
-        name: 'Jacket',
-        price: '35$',
-      },
-    ],
-  };
+  // state = {
+  //   data: [
+  //     {
+  //       id: 1,
+  //       img: img,
+  //       rating: 4,
+  //       store: 'Zalora',
+  //       name: 'Jacket',
+  //       price: '35$',
+  //     },
+  //     {
+  //       id: 2,
+  //       img: img,
+  //       rating: 4,
+  //       store: 'Zalora',
+  //       name: 'Jacket',
+  //       price: '35$',
+  //     },
+  //     {
+  //       id: 3,
+  //       img: img,
+  //       rating: 4,
+  //       store: 'Zalora',
+  //       name: 'Jacket',
+  //       price: '35$',
+  //     },
+  //     {
+  //       id: 4,
+  //       img: img,
+  //       rating: 4,
+  //       store: 'Zalora',
+  //       name: 'Jacket',
+  //       price: '35$',
+  //     },
+  //     {
+  //       id: 5,
+  //       img: img,
+  //       rating: 4,
+  //       store: 'Zalora',
+  //       name: 'Jacket',
+  //       price: '35$',
+  //     },
+  //   ],
+  // };
 
   renderNew = ({item}) => {
     return (
@@ -79,6 +93,7 @@ export default class Home extends Component {
   };
 
   render() {
+    console.log(this.state.new);
     return (
       <Container>
         <Content>
@@ -101,7 +116,7 @@ export default class Home extends Component {
               </View>
               <FlatList
                 horizontal
-                data={this.state.data}
+                data={this.state.new}
                 renderItem={this.renderNew}
                 keyExtractor={(item) => item.id}
               />
@@ -131,3 +146,11 @@ export default class Home extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = {
+  new: productAction.getNew,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
