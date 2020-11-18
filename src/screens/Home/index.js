@@ -11,6 +11,7 @@ import Popular from '../../components/PopularProduct';
 import header from '../../assets/header.png';
 
 import productAction from '../../redux/actions/product';
+import cartAction from '../../redux/actions/cart';
 
 class Home extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Home extends Component {
   componentDidMount() {
     RNBootSplash.hide({});
     this.getProduct();
+    this.props.cart(this.props.token);
   }
 
   render() {
@@ -86,11 +88,14 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+});
 
 const mapDispatchToProps = {
   new: productAction.getNew,
   popular: productAction.getPopular,
+  cart: cartAction.getCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

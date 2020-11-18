@@ -87,7 +87,12 @@ class ProductDetail extends Component {
       quantity: 1,
     };
     const {value} = await this.props.add(this.props.token, data);
-    console.log(value);
+    // console.log(value);
+    this.getCart();
+  };
+
+  getCart = () => {
+    this.props.get(this.props.token);
   };
 
   render() {
@@ -176,6 +181,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   detail: productAction.getProduct,
   add: cartAction.addCart,
+  get: cartAction.getCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

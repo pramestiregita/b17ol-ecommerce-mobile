@@ -1,5 +1,7 @@
 const initialState = {
-  data: {},
+  data: [],
+  pageInfo: {},
+  summary: 0,
   alertMsg: '',
   isLoading: false,
   isError: false,
@@ -29,6 +31,30 @@ export default (state = initialState, action) => {
         isError: false,
         isSuccess: true,
         alertMsg: action.payload.data.message,
+      };
+    }
+    case 'GET_CART_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'GET_CART_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        alertMsg: action.payload.response.data.message,
+      };
+    }
+    case 'GET_CART_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload.data.results,
+        pageInfo: action.payload.data.pageInfo,
+        summary: action.payload.data.summary,
       };
     }
     default: {
