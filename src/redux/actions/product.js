@@ -9,4 +9,8 @@ export default {
     type: 'GET_POPULAR',
     payload: http().get('popular?limit=5'),
   }),
+  getProduct: (id) => ({
+    type: 'GET_DETAIL',
+    payload: http().get(`product/${id}`),
+  }),
 };

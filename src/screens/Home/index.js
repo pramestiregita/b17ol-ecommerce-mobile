@@ -21,16 +21,15 @@ class Home extends Component {
     };
   }
 
-  getNew = async () => {
+  getProduct = async () => {
     const {value: valueNew} = await this.props.new();
     const {value: valuePopular} = await this.props.popular();
-    console.log(valuePopular);
     this.setState({new: valueNew.data.data, popular: valuePopular.data.data});
   };
 
   componentDidMount() {
     RNBootSplash.hide({});
-    this.getNew();
+    this.getProduct();
   }
 
   render() {
