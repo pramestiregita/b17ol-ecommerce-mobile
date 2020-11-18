@@ -13,4 +13,12 @@ export default {
     type: 'GET_DETAIL',
     payload: http().get(`product/${id}`),
   }),
+  nextNew: (url) => ({
+    type: 'NEXT_NEW',
+    payload: http().get(url),
+  }),
+  nextPopular: (url) => ({
+    type: 'NEXT_POPULAR',
+    payload: http().get(url),
+  }),
 };
