@@ -2,6 +2,7 @@ const initialState = {
   data: {},
   detail: {},
   pageInfo: {},
+  primary: {},
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -97,6 +98,28 @@ export default (state = initialState, action) => {
         isError: false,
         isSuccess: true,
         alertMsg: action.payload.data.message,
+      };
+    }
+    case 'PRIMARY_ADDRESS_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'PRIMARY_ADDRESS_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'PRIMARY_ADDRESS_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        primary: action.payload.data.data[0],
       };
     }
     default: {

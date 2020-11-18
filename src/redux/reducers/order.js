@@ -3,6 +3,7 @@ const initialState = {
   pageInfo: {},
   isLoading: false,
   isError: false,
+  isSuccess: false,
   alertMsg: '',
 };
 
@@ -28,6 +29,28 @@ export default (state = initialState, action) => {
         isError: false,
         data: action.payload.data.data,
         pageInfo: action.payload.data.pageInfo,
+      };
+    }
+    case 'CHECKOUT_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'CHECKOUT_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'CHECKOUT_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isSuccess: true,
+        alertMsg: action.payload.data.message,
       };
     }
     default: {

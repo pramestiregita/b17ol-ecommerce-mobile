@@ -50,7 +50,7 @@ export default StyleSheet.create({
   },
   total: {
     paddingHorizontal: 13,
-    paddingTop: 20,
+    paddingVertical: 20,
     backgroundColor: 'white',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,

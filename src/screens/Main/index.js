@@ -103,7 +103,6 @@ const MyBagStack = () => {
         },
       }}>
       <Stack.Screen name="MyBag" component={MyBag} />
-      <Stack.Screen name="Checkout" component={Checkout} />
     </Stack.Navigator>
   );
 };
@@ -245,6 +244,7 @@ class Main extends Component {
               name="Review"
               component={Review}
             />
+            <Stack.Screen name="Checkout" component={Checkout} />
           </Stack.Navigator>
         )}
       </NavigationContainer>

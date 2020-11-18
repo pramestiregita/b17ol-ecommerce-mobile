@@ -18,4 +18,8 @@ export default {
     type: 'UPDATE_ADDRESS',
     payload: http(token).patch(`customer/my-address/${id}`, qs.stringify(data)),
   }),
+  getPrimary: (token) => ({
+    type: 'PRIMARY_ADDRESS',
+    payload: http(token).get('customer/primary-address'),
+  }),
 };

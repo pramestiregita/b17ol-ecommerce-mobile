@@ -50,20 +50,22 @@ class MyBag extends Component {
             </View>
           )}
         </View>
-        <View style={style.checkoutWrapper}>
-          <View style={style.text}>
-            <Text style={style.total}>Total amount :</Text>
-            <Text style={style.price}>
-              <Rupiah value={summary} />
-            </Text>
+        {Object.keys(data).length > 0 && (
+          <View style={style.checkoutWrapper}>
+            <View style={style.text}>
+              <Text style={style.total}>Total amount :</Text>
+              <Text style={style.price}>
+                <Rupiah value={summary} />
+              </Text>
+            </View>
+            <Button
+              onPress={() => this.props.navigation.navigate('Checkout')}
+              style={style.btn}
+              block>
+              <Text style={style.btnText}>check out</Text>
+            </Button>
           </View>
-          <Button
-            onPress={() => this.props.navigation.navigate('Checkout')}
-            style={style.btn}
-            block>
-            <Text style={style.btnText}>check out</Text>
-          </Button>
-        </View>
+        )}
       </>
     );
   }

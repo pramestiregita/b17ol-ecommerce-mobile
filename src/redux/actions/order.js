@@ -5,4 +5,8 @@ export default {
     type: 'GET_ORDERS',
     payload: http(token).get('customer/my-order'),
   }),
+  checkout: (token) => ({
+    type: 'CHECKOUT',
+    payload: http(token).post('customer/checkout'),
+  }),
 };
