@@ -53,6 +53,28 @@ export default (state = initialState, action) => {
         alertMsg: action.payload.data.message,
       };
     }
+    case 'NEXT_ORDER_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+    case 'NEXT_ORDER_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+      };
+    }
+    case 'NEXT_ORDER_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload.data.data,
+        pageInfo: action.payload.data.pageInfo,
+      };
+    }
     default: {
       return state;
     }
