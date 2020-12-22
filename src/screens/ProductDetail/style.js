@@ -63,6 +63,9 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 28,
   },
+  nameWrapper: {
+    flex: 1,
+  },
   name: {
     color: 'grey',
     fontSize: 16,

@@ -124,7 +124,7 @@ class ProductDetail extends Component {
                 </View>
                 <View style={style.content}>
                   <View style={style.header}>
-                    <View>
+                    <View style={style.nameWrapper}>
                       <Text style={style.store}>{product.store}</Text>
                       <Text style={style.name}>{product.name}</Text>
                     </View>
@@ -141,18 +141,20 @@ class ProductDetail extends Component {
                   <View>
                     <Text style={style.des}>{product.description}</Text>
                   </View>
-                  <View style={style.colorWrapper}>
-                    <TouchableOpacity
-                      style={[style.circle, {borderColor: 'red'}]}>
-                      <View
-                        style={[
-                          style.color,
-                          {backgroundColor: `${product.hex}`},
-                        ]}>
-                        <Text>&nbsp;</Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
+                  {product.color ? (
+                    <View style={style.colorWrapper}>
+                      <TouchableOpacity
+                        style={[style.circle, {borderColor: 'red'}]}>
+                        <View
+                          style={[
+                            style.color,
+                            {backgroundColor: `${product.hex}`},
+                          ]}>
+                          <Text>&nbsp;</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
                   <View>
                     <View style={style.titleWrapper}>
                       <Text style={style.title}>You can also like this</Text>
